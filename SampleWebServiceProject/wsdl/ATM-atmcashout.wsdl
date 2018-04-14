@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="ATM-atmcashout"
+   targetNamespace="http://atm-atmcashout.em.emm.ericsson.com"
+   xmlns="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:tns="http://atm-atmcashout.em.emm.ericsson.com"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <types>
+      <xs:schema elementFormDefault="qualified"
+         targetNamespace="http://atm-atmcashout.em.emm.ericsson.com" xmlns="http://www.w3.org/2001/XMLSchema">
+         <xs:complexType name="headerfieldType">
+            <xs:attribute name="name" type="xs:string"/>
+            <xs:attribute name="value" type="xs:string"/>
+         </xs:complexType>
+         <xs:complexType name="headerfieldsType">
+            <xs:sequence>
+               <xs:element maxOccurs="1" minOccurs="0"
+                  name="headerfield" type="tns:headerfieldType"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="atmcashoutrequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element maxOccurs="unbounded" minOccurs="0"
+                     name="headerfields" type="tns:headerfieldsType"/>
+                  <xs:element name="externalTransactionId" type="xs:string"/>
+                  <xs:element minOccurs="0" name="atmAddress" type="xs:string"/>
+                  <xs:element name="msisdn" type="xs:string"/>
+                  <xs:element name="otp" type="xs:string"/>
+                  <xs:element name="amount" type="xs:decimal"/>
+                  <xs:element name="currency" type="xs:string"/>
+               </xs:sequence>
+               <xs:attribute name="version" type="xs:string"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="atmcashoutresponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="externaltransactionid" type="xs:string"/>
+                  <xs:element name="transactionid" type="xs:long"/>
+                  <xs:element name="balance" type="xs:decimal"/>
+                  <xs:element name="fee" type="xs:decimal"/>
+                  <xs:element minOccurs="0" name="loyalty" type="tns:loyalty"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="loyalty">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="generated" type="xs:decimal"/>
+               <xs:element minOccurs="0" name="consumed" type="xs:decimal"/>
+               <xs:element minOccurs="0" name="newbalance" type="xs:decimal"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="errorResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element maxOccurs="unbounded" minOccurs="0"
+                     name="arguments" nillable="true" type="tns:errorargumenttype"/>
+               </xs:sequence>
+               <xs:attribute name="errorcode" type="xs:string"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="errorargumenttype">
+            <xs:sequence/>
+            <xs:attribute name="name" type="xs:string"/>
+            <xs:attribute name="value" type="xs:string"/>
+         </xs:complexType>
+      </xs:schema>
+   </types>
+   <message name="atmcashoutRequest">
+      <part element="tns:atmcashoutrequest" name="atmcashoutrequest"/>
+   </message>
+   <message name="atmcashoutResponse">
+      <part element="tns:atmcashoutresponse" name="atmcashoutresponse"/>
+   </message>
+   <message name="errorResponse">
+      <part element="tns:errorResponse" name="errorResponse"/>
+   </message>
+   <portType name="ATM-atmcashoutPortType">
+      <operation name="atmcashout">
+         <input message="tns:atmcashoutRequest" name="atmcashoutRequest"/>
+         <output message="tns:atmcashoutResponse" name="atmcashoutResponse"/>
+         <fault message="tns:errorResponse" name="errorResponse"/>
+      </operation>
+   </portType>
+   <binding name="ATM-atmcashoutBinding" type="tns:ATM-atmcashoutPortType">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <operation name="atmcashout">
+         <soap:operation soapAction=""/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+         <fault name="errorResponse">
+            <soap:fault name="errorResponse" use="literal"/>
+         </fault>
+      </operation>
+   </binding>
+   <service name="ATM-atmcashoutService">
+      <port binding="tns:ATM-atmcashoutBinding" name="ATM-atmcashoutPort">
+         <soap:address location="http://localhost:9000/helloWorld"/>
+	 <wswa:UsingAddressing xmlns:wswa="http://www.w3.org/2005/02/addressing/wsdl"/>
+      </port>
+   </service>
+</definitions>

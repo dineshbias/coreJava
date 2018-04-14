@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" targetNamespace="http://www.ericsson.com/am/xsd" xmlns:tns="http://www.ericsson.com/am/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:complexType name="propertyType">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="value" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="propertiesType">
+        <xs:sequence>
+            <xs:element name="property" type="tns:propertyType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="propertyListType">
+        <xs:sequence>
+            <xs:element name="property" type="tns:propertyType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="propertyListsType">
+        <xs:sequence>
+            <xs:element name="propertylist" type="tns:propertyListType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+	<!-- SPECIAL elements below -->
+	<xs:complexType name="smsmoduleType">
+		<xs:attribute name="host" type="xs:string" use="required"/>
+		<xs:attribute name="port" type="xs:positiveInteger" use="required"/>
+		<xs:attribute name="username" type="xs:string" use="required"/>
+		<xs:attribute name="password" type="xs:string" use="required"/>
+		<xs:attribute name="destinationFolder" type="xs:string" use="required"/>
+		<xs:attribute name="Alphabet" type="xs:string" use="required"/>
+		<xs:attribute name="Autosplit" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:element name="smsmodule" type="tns:smsmoduleType" />
+
+	<xs:complexType name="mapType">
+		<xs:attribute name="external" type="xs:string" use="required"/>
+		<xs:attribute name="internal" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="notificationType">
+		<xs:sequence>
+			<xs:element name="map" type="tns:mapType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="receiver" type="xs:string" use="required"/>
+		<xs:attribute name="operation" type="xs:string" use="required"/>
+		<xs:attribute name="channel" type="xs:string" use="required"/>
+		<xs:attribute name="clientID" type="xs:string" use="optional" default="lwam"/>
+	</xs:complexType>
+
+	<xs:complexType name="notificationsType">
+		<xs:sequence>
+			<xs:element name="notification" type="tns:notificationType" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="operationType">
+		<xs:sequence>
+			<xs:element name="notifications" type="tns:notificationsType" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+		<xs:complexType name="operationsType">
+			<xs:sequence>
+				<xs:element name="operation" type="tns:operationType" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+
+	<xs:simpleType name="protocolType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="http" />
+			<xs:enumeration value="https" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="remoteType">
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="businesslogic" type="xs:string" use="required"/>
+	</xs:complexType>
+
+		<xs:complexType name="remotesType">
+			<xs:sequence>
+				<xs:element name="remote" type="tns:remoteType" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	
+	<!-- GENERAL elements below -->
+
+	<xs:complexType name="moduleType">
+		<xs:sequence>
+			<xs:element name="properties" type="tns:propertiesType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="propertylists" type="tns:propertyListsType" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string" use="required"/>
+		<xs:attribute name="enabled" type="xs:boolean" use="required"/>
+		<xs:attribute name="businesslogic" type="xs:string" use="optional"/>
+	</xs:complexType>
+	
+	<xs:complexType name="modulesType">
+		<xs:sequence>
+			<xs:element name="module" type="tns:moduleType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="businesslogicType">
+		<xs:sequence>
+			<xs:element name="properties" type="tns:propertiesType" minOccurs="1" maxOccurs="1" />
+			<xs:element name="propertylists" type="tns:propertyListsType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="operations" type="tns:operationsType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="remotes" type="tns:remotesType" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string" use="required"/>
+	</xs:complexType>
+
+	<xs:simpleType name="X509HostnameVerifierValueType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STRICT_HOSTNAME_VERIFIER" />
+			<xs:enumeration value="BROWSER_COMPATIBLE_HOSTNAME_VERIFIER" />
+			<xs:enumeration value="ALLOW_ALL_HOSTNAME_VERIFIER" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="X509HostnameVerifierType">
+		<xs:attribute name="value" type="tns:X509HostnameVerifierValueType" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="keystoreType">
+		<xs:attribute name="path" type="xs:string" use="required"/>
+		<xs:attribute name="password" type="xs:string" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="securityType">
+		<xs:sequence>
+			<xs:element name="keystore" type="tns:keystoreType" minOccurs="1" maxOccurs="1" />
+			<xs:element name="X509HostnameVerifier" type="tns:X509HostnameVerifierType" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="timeunitType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DAYS" />
+			<xs:enumeration value="HOURS" />
+			<xs:enumeration value="MICROSECONDS" />
+			<xs:enumeration value="MILLISECONDS" />
+			<xs:enumeration value="MINUTES" />
+			<xs:enumeration value="NANOSECONDS" />
+			<xs:enumeration value="SECONDS" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="sessionType">
+		<xs:attribute name="timeout" type="xs:integer" use="required"/>
+		<xs:attribute name="timeunit" type="tns:timeunitType" use="required"/>
+		<xs:attribute name="multicastGroup" type="xs:string" use="optional" default=""/>
+		<xs:attribute name="multicastPort" type="xs:integer" use="optional" default="0"/>
+		<xs:attribute name="multicastTimeout" type="xs:integer" use="optional" default="1000"/>
+	</xs:complexType>
+	
+	<xs:complexType name="httpType">
+	   <xs:attribute name="socketTimeToLive" type="xs:integer" use="required" />
+       <xs:attribute name="socketTimeout" type="xs:integer" use="required" />
+       <xs:attribute name="connectionTimeout" type="xs:integer" use="required" />
+       <xs:attribute name="idleConnectionsHandlerInterval" type="xs:integer" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="statisticsType">
+       <xs:attribute name="name" type="xs:string" use="required" />
+       <xs:attribute name="interval" type="xs:integer" use="optional" />
+    </xs:complexType>
+    
+	
+   <xs:complexType name="globalsettingsType">
+       <xs:sequence>
+			<xs:element name="session" type="tns:sessionType" minOccurs="1" maxOccurs="1" />
+			<xs:element name="http" type="tns:httpType" minOccurs="1" maxOccurs="1" />
+			<xs:element name="statistics" type="tns:statisticsType" minOccurs="0" maxOccurs="1" />
+       </xs:sequence>
+   </xs:complexType>
+
+	<xs:element name="lwam">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="globalsettings" type="tns:globalsettingsType" minOccurs="1" maxOccurs="1" />
+				<xs:element name="security" type="tns:securityType" minOccurs="1" maxOccurs="1" />
+				<xs:element name="businesslogic" type="tns:businesslogicType" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element name="modules" type="tns:modulesType" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="defaultLanguage" type="xs:string" use="optional" default="en"/>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

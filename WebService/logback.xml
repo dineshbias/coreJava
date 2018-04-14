@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false" scan="false">
+   <appender name="all.log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/all.0.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover into archive directory with compression -->
+            <fileNamePattern>logs/archive/%d{yyyyMMdd}/all.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACING</level>
+        </filter>
+        <encoder>
+            <pattern>[%date{EE MMM dd HH:mm:ss.SSS}] [%level] [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+  
+        <logger
+            name="org.apache.cxf.services"
+            level="INFO" additivity="false">
+            <appender-ref ref="all.log" />
+        </logger>
+</configuration>
