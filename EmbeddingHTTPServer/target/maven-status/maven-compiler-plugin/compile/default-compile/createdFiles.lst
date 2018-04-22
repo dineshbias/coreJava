@@ -1,0 +1,4 @@
+test\ExampleServer.class
+test\handlers\ExampleHandler.class
+test\handlers\ExampleContextHandler.class
+test\HelloWorld.class
