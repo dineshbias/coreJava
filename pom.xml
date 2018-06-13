@@ -15,6 +15,7 @@
   <packaging>pom</packaging>
   
   <modules>
+		<module>TestJunitProject</module>
         <module>aquarium</module>
         <module>CoreJava</module>
 		<module>ocp</module>
