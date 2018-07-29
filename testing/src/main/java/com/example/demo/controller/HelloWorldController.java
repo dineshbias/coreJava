@@ -67,7 +67,7 @@ public class HelloWorldController {
 
 	@RequestMapping(value = "/user/{id}")
 	public String handlePathAndRequestParams(@PathVariable(value = "id") String id,
-			@RequestParam(required = false) String username) {
+			@RequestParam(value = "username", required = false) String username) {
 		System.out.println(this + " handlePathAndRequestParams " + id + " " + username);
 
 		helper.doSomething();

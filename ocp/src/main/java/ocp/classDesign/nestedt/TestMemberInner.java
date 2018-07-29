@@ -38,16 +38,17 @@ class Outer {
 
 	public class Inner {
 		private String greetings = Outer.this.greetings;
-		
+
 		Outer out;
+
 		Inner() {
 			System.out.println("Inner Constructor " + greetings);
 			out = new Outer();
-			
+
 		}
 
 		private int repeat = 3;
-		
+
 		public void go() {
 			for (int i = 0; i < repeat; i++) {
 				System.out.println(greetings);
@@ -68,7 +69,7 @@ class Outer {
 		System.out.print("****");
 		greetings = "Hi outer2";
 		in.go();
-		
+
 	}
 }
 

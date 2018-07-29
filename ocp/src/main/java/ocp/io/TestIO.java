@@ -53,20 +53,19 @@ public class TestIO {
 		URI uri = f2.toURI();
 		Path p = Paths.get(uri).toAbsolutePath();
 
-		Path path = Paths.get("/user/.././../../../../root",
-				"../kodiacbear.txt");
+		Path path = Paths.get("/user/.././../../../../root", "../kodiacbear.txt");
 		System.out.println(path.normalize());
 
 		testSerialization();
 		// printSystemProperties();
 		File file = new File(testHome);
-		deleteDirectoryAndFileContentsFromFile(file);
-		createDirectory("test1");
-		createDirectory("emptyDir");
-		createDirectoryAndFiles("test");
+		// deleteDirectoryAndFileContentsFromFile(file);
+		// createDirectory("test1");
+		// createDirectory("emptyDir");
+		// createDirectoryAndFiles("test");
 		System.out.println();
 
-		List<A> list = new ArrayList<A>();
+		List<ocp.io.A> list = new ArrayList<ocp.io.A>();
 		A a = new A();
 		Example e = new Example();
 		e.tConsatnt = "Changed";
@@ -93,58 +92,26 @@ public class TestIO {
 		System.out.println();
 		readDirectoryAndFileContents();
 		copyAnyFiles(
-				new File(
-						"C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
-								+ fileSeparator
-								+ "file"
-								+ fileSeparator
-								+ "SamplePDF.pdf"),
-				new File(
-						"C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
-								+ fileSeparator
-								+ "file"
-								+ fileSeparator
-								+ "copySamplePDF.pdf"));
+				new File("C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
+						+ fileSeparator + "file" + fileSeparator + "SamplePDF.pdf"),
+				new File("C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
+						+ fileSeparator + "file" + fileSeparator + "copySamplePDF.pdf"));
 		copyTextFiles(
-				new File(
-						"C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
-								+ fileSeparator
-								+ "file"
-								+ fileSeparator
-								+ "abc.txt"),
-				new File(
-						"C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
-								+ fileSeparator
-								+ "file"
-								+ fileSeparator
-								+ "copyabc.txt"));
+				new File("C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
+						+ fileSeparator + "file" + fileSeparator + "abc.txt"),
+				new File("C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
+						+ fileSeparator + "file" + fileSeparator + "copyabc.txt"));
 
 		copyAnyFileUsingBuffer(
-				new File(
-						"C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
-								+ fileSeparator
-								+ "file"
-								+ fileSeparator
-								+ "lwam-1.1.3.0.zip"),
-				new File(
-						"C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
-								+ fileSeparator
-								+ "file"
-								+ fileSeparator
-								+ "copylwam-1.1.3.0.zip"));
+				new File("C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
+						+ fileSeparator + "file" + fileSeparator + "lwam-1.1.3.0.zip"),
+				new File("C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
+						+ fileSeparator + "file" + fileSeparator + "copylwam-1.1.3.0.zip"));
 		copyTextFilesUsingBuffer(
-				new File(
-						"C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
-								+ fileSeparator
-								+ "file"
-								+ fileSeparator
-								+ "Answer.java"),
-				new File(
-						"C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
-								+ fileSeparator
-								+ "file"
-								+ fileSeparator
-								+ "CopyAnswer.java"));
+				new File("C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
+						+ fileSeparator + "file" + fileSeparator + "Answer.java"),
+				new File("C:\\Users\\edinjos\\Desktop\\backup\\ubuntu_BackUp\\Workspace\\Workspace_CoreJava8\\Java8"
+						+ fileSeparator + "file" + fileSeparator + "CopyAnswer.java"));
 
 		testPrintStream();
 		testPrintWriter();
@@ -153,19 +120,16 @@ public class TestIO {
 
 	public static void printSystemProperties() {
 		Properties properties = System.getProperties();
-		properties
-				.forEach((Object propertyName, Object propertyValue) -> System.out
-						.println(propertyName + ":" + propertyValue));
+		properties.forEach(
+				(Object propertyName, Object propertyValue) -> System.out.println(propertyName + ":" + propertyValue));
 	}
 
 	public static void createDirectory(String filename) {
 
 		System.out.println(fileSeparator);
-		File file = (filename == null ? new File(testHome) : new File(testHome
-				+ fileSeparator + filename));
+		File file = (filename == null ? new File(testHome) : new File(testHome + fileSeparator + filename));
 
-		System.out.println("Create Directory :" + file.getAbsolutePath() + " "
-				+ file.mkdirs());
+		System.out.println("Create Directory :" + file.getAbsolutePath() + " " + file.mkdirs());
 
 		System.out.println("File absolute path:" + file.getAbsolutePath());
 		System.out.println("File isdirectory:" + file.isDirectory());
@@ -188,16 +152,14 @@ public class TestIO {
 
 	public static void createDirectoryAndFiles(String dir) {
 
-		String absolutePath = testHome + fileSeparator + dir + fileSeparator
-				+ "bufferedWriter.txt";
+		String absolutePath = testHome + fileSeparator + dir + fileSeparator + "bufferedWriter.txt";
 		System.out.println("Creating file " + absolutePath);
 		File file = new File(absolutePath);
 
 		// Create File Using Buffered writer. writes character stream to
 		// outputstream
 		try {
-			BufferedWriter buff = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(file)));
+			BufferedWriter buff = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 			buff.write("This is writtern using bufferedWriter.");
 			buff.close();
 		} catch (FileNotFoundException e) {
@@ -211,8 +173,7 @@ public class TestIO {
 		System.out.println("Creating file " + absolutePath);
 		file = new File(absolutePath);
 		try (FileOutputStream oswriter = new FileOutputStream(file);) {
-			oswriter.write("This is writtern using file output stream."
-					.getBytes());
+			oswriter.write("This is writtern using file output stream.".getBytes());
 			oswriter.write("\n".getBytes());
 			oswriter.write("Bbyee...".getBytes());
 		} catch (FileNotFoundException e) {
@@ -265,8 +226,7 @@ public class TestIO {
 	public static void readContentOfFilesContainChar(File file) {
 
 		try (FileReader reader = new FileReader(file);) {
-			System.out.println("******** markSupported : "
-					+ reader.markSupported());
+			System.out.println("******** markSupported : " + reader.markSupported());
 			int lengthRead = 0;
 			char[] data = new char[1024];
 
@@ -320,8 +280,7 @@ public class TestIO {
 
 	public static void copyTextFiles(File source, File destination) {
 
-		try (FileReader freader = new FileReader(source);
-				FileWriter fwriter = new FileWriter(destination);) {
+		try (FileReader freader = new FileReader(source); FileWriter fwriter = new FileWriter(destination);) {
 			for (int b = freader.read(); b != -1; b = freader.read()) {
 				fwriter.write(b);
 			}
@@ -397,8 +356,7 @@ public class TestIO {
 			fW = new FileWriter(destination);
 			br = new BufferedReader(fR, 1_024);
 			bw = new BufferedWriter(fW, 1_024);
-			System.out.println("mark supported.." + br.markSupported() + " "
-					+ source);
+			System.out.println("mark supported.." + br.markSupported() + " " + source);
 			if (br.markSupported()) {
 				br.mark(1024);
 			}
@@ -436,8 +394,7 @@ public class TestIO {
 	}
 
 	public static void createSerializedFile(File file, List<A> list) {
-		try (ObjectOutputStream oos = new ObjectOutputStream(
-				new FileOutputStream(file));) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));) {
 			for (A a : list) {
 				oos.writeObject(a);
 				System.out.println("Write Object[ " + a + "]");
@@ -455,8 +412,7 @@ public class TestIO {
 	}
 
 	public static void readSerializedFile(File file) {
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
-				file));) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));) {
 			int i = 0;
 			do {
 
@@ -536,8 +492,7 @@ public class TestIO {
 	public static void testSerialization() {
 		Zebra z = new Zebra();
 		System.out.println(z);
-		try (ObjectOutputStream objStream = new ObjectOutputStream(
-				new FileOutputStream("abc.ser"));) {
+		try (ObjectOutputStream objStream = new ObjectOutputStream(new FileOutputStream("abc.ser"));) {
 			objStream.writeObject(z);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -549,8 +504,7 @@ public class TestIO {
 
 		System.out.println();
 
-		try (ObjectInputStream objInputStream = new ObjectInputStream(
-				new FileInputStream("abc.ser"))) {
+		try (ObjectInputStream objInputStream = new ObjectInputStream(new FileInputStream("abc.ser"))) {
 			Zebra zs = (Zebra) objInputStream.readObject();
 			System.out.println(zs);
 		} catch (FileNotFoundException e) {
@@ -568,18 +522,22 @@ public class TestIO {
 	public static void testSample(InputStream in, OutputStream out) throws IOException {
 		final byte[] buffer = new byte[100];
 		int lengthRead;
-		
-		while( (lengthRead = in.read(buffer) ) > 0){
+
+		while ((lengthRead = in.read(buffer)) > 0) {
 			out.flush();
 			out.write(buffer, 0, lengthRead);
 			out.flush();
 		}
-		
-		
+
 	}
 }
 
 class Zebra implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final long serialUID = 1L;
 	private transient String name = "George";
 	private static String birthPlace = "Africa";
@@ -598,9 +556,8 @@ class Zebra implements Serializable {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return serialUID + " name:" + name + " birthPlace:" + birthPlace
-				+ " age:" + age + " friends:" + friends + " tail:" + tail
-				+ " P:" + p;
+		return serialUID + " name:" + name + " birthPlace:" + birthPlace + " age:" + age + " friends:" + friends
+				+ " tail:" + tail + " P:" + p;
 	}
 }
 

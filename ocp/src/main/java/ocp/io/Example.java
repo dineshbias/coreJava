@@ -11,9 +11,6 @@ import java.io.Serializable;
  */
 public class Example implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public static String tConsatnt = "Hello";
@@ -46,8 +43,8 @@ public class Example implements Serializable {
 		this.sal = sal;
 	}
 
+	@Override
 	public String toString() {
-		return "id:" + getId() + " " + "name:" + getName() + " " + "sal:"
-				+ getSalary() + " tConsatnt:"+tConsatnt;
+		return "id:" + getId() + " " + "name:" + getName() + " " + "sal:" + getSalary() + " tConsatnt:" + tConsatnt;
 	}
 }

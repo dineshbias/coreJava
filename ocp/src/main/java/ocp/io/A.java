@@ -18,7 +18,7 @@ public class A implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private long time;
 	private Example e;
-	
+
 	private transient B test;
 	private transient String a;
 	private transient int b = 10;
@@ -57,16 +57,17 @@ public class A implements Serializable {
 		return e;
 	}
 
+	@Override
 	public String toString() {
 		return "a:" + a + " b:" + b + " type:" + type + " time:" + time + " "
-				+ (e == null ? null : e.toString() + " B:"+test);
+				+ (e == null ? null : e.toString() + " B:" + test);
 	}
 }
 
-class B{
-	B(){
+class B {
+	B() {
 		System.out.println("B Constructor");
+
 	}
-	
-	
+
 }

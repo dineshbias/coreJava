@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.Locale;
 import java.util.LongSummaryStatistics;
 import java.util.Map;
 import java.util.Optional;
@@ -48,53 +47,49 @@ import java.util.stream.Stream;
  */
 
 public class TestBuiltInFunctionalInterfaces {
-	
-	public static void main(String... strings) {
-		//testSample();
 
-		//testLambdaAndVariables();
-		//testFunctionalInterfaces();
-		//testOptional();
-		//testTerminalOperation();
+	public static void main(String... strings) {
+		// testSample();
+
+		// testLambdaAndVariables();
+		testFunctionalInterfaces();
+		// testOptional();
+		// testTerminalOperation();
 		// testIntermediateOperation();
-		//testPrimitiveStreams();
+		// testPrimitiveStreams();
 		Integer i;
 		// testAdvancedStreamConcepts();
 		testCollectingResultsPredefinedCollectors();
 
 	}
-	
+
 	private static void magic(Stream<Integer> s) {
 		Optional o = s.limit(5).max((x, y) -> x - y);
-		//Optional o = s.filter(x -> x < 5).max((x, y) -> x - y);
+		// Optional o = s.filter(x -> x < 5).max((x, y) -> x - y);
 		System.out.println(o.get());
-		
+
 	}
 
 	public static void testSample() {
 		magic(Stream.of(5, 10));
 		magic(Stream.iterate(1, x -> x++));
-		magic(Stream.empty()); 
-		
+		magic(Stream.empty());
+
 		Path userDirectory = Paths.get("/coralreef/../clown/fish").normalize(); // m1
 		System.out.println("userDirectory " + userDirectory);
 		System.out.println("Parent directory " + userDirectory.getParent());
 		System.out.println("Root directory " + userDirectory.getRoot());
-		System.out.println("Parent root directory "
-				+ userDirectory.getRoot().getParent());
+		System.out.println("Parent root directory " + userDirectory.getRoot().getParent());
 
 		System.out.println("*********");
 
 		userDirectory = Paths.get("coralreef/../clown/fish").normalize(); // m1
 		System.out.println("userDirectory " + userDirectory);
 		System.out.println("Parent directory " + userDirectory.getParent());
-		System.out.println("Root directory "
-				+ userDirectory.toAbsolutePath().getRoot());
+		System.out.println("Root directory " + userDirectory.toAbsolutePath().getRoot());
 		System.out.println("Root directory " + userDirectory.getRoot());
-		System.out.println("Parent root directory "
-				+ userDirectory.toAbsolutePath().getRoot().getParent());
+		System.out.println("Parent root directory " + userDirectory.toAbsolutePath().getRoot().getParent());
 
-		
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		IntStream.of(1, 2, 3, 4, 5, 6, 7, 8, 9).parallel() // z1
 				.forEachOrdered(c -> service.submit( // z2
@@ -121,14 +116,11 @@ public class TestBuiltInFunctionalInterfaces {
 		throw new Error();
 	}
 
-	
-
 	public static void testTerminalOperation() {
 		// Creating Finite Streams
 		Stream<String> emptyStream = Stream.empty();
-		
-		java.util.List<String> list = Arrays.asList("Dog", "Cat", "Rabbit",
-				"Cow", "kangaroo");
+
+		java.util.List<String> list = Arrays.asList("Dog", "Cat", "Rabbit", "Cow", "kangaroo");
 		Stream<String> finiteStreamFromList = list.stream();
 		Stream<String> finiteStreamFromList2 = list.stream();
 		Stream<String> finiteStreamFromList3 = list.stream();
@@ -138,149 +130,115 @@ public class TestBuiltInFunctionalInterfaces {
 		Stream<String> finiteParallelStreamFromList2 = list.parallelStream();
 
 		// Creating Infinite Streams
-		Stream<Double> infiniteStreamForDouble = Stream.generate(() -> Math
-				.random());
+		Stream<Double> infiniteStreamForDouble = Stream.generate(() -> Math.random());
 		Stream<Integer> randoms = Stream.iterate("".length(), n -> n + 2);
 
 		// Terminal Operations on finite and infinite Streams
-		System.out.println("counting number of elements in finite stream:"
-				+ emptyStream.count());
+		System.out.println("counting number of elements in finite stream:" + emptyStream.count());
 		// System.out.println("Counting number of elements in infinite stream:"
 		// + infiniteStreamForDouble.count() + " " + randoms.count());
 		Stream<Integer> finiteStreamFromArray = Stream.of(1, 2, 3, 4, 5);
 		Optional<Integer> min = finiteStreamFromArray.min((a, b) -> a - b);
 		System.out.println("min " + min.get());
 
-		Optional<String> s = finiteStreamFromList.max((a, b) -> a.length()
-				- b.length());
+		Optional<String> s = finiteStreamFromList.max((a, b) -> a.length() - b.length());
 		System.out.println("max " + s.orElse(""));
 
-		System.out.println("findFirst "
-				+ finiteStreamFromList2.findFirst().get() + " findAny "
+		System.out.println("findFirst " + finiteStreamFromList2.findFirst().get() + " findAny "
 				+ finiteStreamFromList3.findAny().get());
-		System.out.println("findFirst parallel "
-				+ finiteParallelStreamFromList.findFirst().get()
-				+ " findAny parallel "
+		System.out.println("findFirst parallel " + finiteParallelStreamFromList.findFirst().get() + " findAny parallel "
 				+ finiteParallelStreamFromList2.findAny().get());
 		System.out.println("findAny infinite " + randoms.findAny().get());
 		emptyStream = Stream.empty();
 		emptyStream.findAny().ifPresent(System.out::println);
 
-		Stream<Item> finiteStreamOfObjects = Stream.of(new Item("Biscuit",
-				10.5, 1), new Item("Soap", 15, 2), new Item("TootahBrush", 30,
-				3), new Item("Biscuit", 25, 1));
+		Stream<Item> finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1), new Item("Soap", 15, 2),
+				new Item("TootahBrush", 30, 3), new Item("Biscuit", 25, 1));
 		Predicate<Item> predicate = i -> i.getItemCode() == 1;
-		System.out.println("All Match :"
-				+ finiteStreamOfObjects.allMatch(predicate));
-		
-		finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1),
-				new Item("Soap", 15, 2), new Item("TootahBrush", 30, 3),
-				new Item("Biscuit", 25, 1));
-		System.out.println("Any Match :"
-				+ finiteStreamOfObjects.anyMatch((i) -> i.getItemCode() == 3));
-		
-		finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1),
-				new Item("Soap", 15, 2), new Item("TootahBrush", 30, 3),
-				new Item("Biscuit", 25, 1));
-		System.out
-				.println("None Match :"
-						+ finiteStreamOfObjects.noneMatch((i2) -> i2
-								.getItemCode() == 9));
+		System.out.println("All Match :" + finiteStreamOfObjects.allMatch(predicate));
 
-		finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1),
-				new Item("Soap", 15, 2), new Item("TootahBrush", 30, 3),
-				new Item("Biscuit", 25, 1));
+		finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1), new Item("Soap", 15, 2),
+				new Item("TootahBrush", 30, 3), new Item("Biscuit", 25, 1));
+		System.out.println("Any Match :" + finiteStreamOfObjects.anyMatch((i) -> i.getItemCode() == 3));
+
+		finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1), new Item("Soap", 15, 2),
+				new Item("TootahBrush", 30, 3), new Item("Biscuit", 25, 1));
+		System.out.println("None Match :" + finiteStreamOfObjects.noneMatch((i2) -> i2.getItemCode() == 9));
+
+		finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1), new Item("Soap", 15, 2),
+				new Item("TootahBrush", 30, 3), new Item("Biscuit", 25, 1));
 		finiteStreamOfObjects.forEach((ss) -> System.out.print(" " + ss));
 
 		finiteStreamFromList = Stream.of("D", "I", "N", "E", "S", "H");
-		System.out.println("\n"
-				+ finiteStreamFromList.reduce("", (a, b) -> a + b));
+		System.out.println("\n" + finiteStreamFromList.reduce("", (a, b) -> a + b));
 
 		finiteStreamFromArray = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-		finiteStreamFromArray.reduce((c, d) -> c + d).ifPresent(
-				System.out::println);
+		finiteStreamFromArray.reduce((c, d) -> c + d).ifPresent(System.out::println);
 
 		finiteStreamFromArray = Stream.of(1, 2, 3, 4);
-		finiteStreamFromArray.reduce((c, d) -> c * d).ifPresent(
-				System.out::println);
+		finiteStreamFromArray.reduce((c, d) -> c * d).ifPresent(System.out::println);
 
 		List<Integer> lIntenger = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-		Stream<Integer> finiteIntegerParallelStream = lIntenger
-				.parallelStream();
-		System.out.println(finiteIntegerParallelStream.reduce(0, (c, d) -> c
-				+ d, (c, d) -> c + d));
+		Stream<Integer> finiteIntegerParallelStream = lIntenger.parallelStream();
+		System.out.println(finiteIntegerParallelStream.reduce(0, (c, d) -> c + d, (c, d) -> c + d));
 
 		String[] strArray = { "abc", "mno", "xyz", "pqr", "lmn" };
 		List<String> strList = Arrays.asList(strArray);
 
 		System.out.println("stream test");
-		int streamResult = strList.stream().reduce(
-				0,
-				(total, s1) -> {
-					System.out.println("accumulator: total[" + total + "] s1["
-							+ s1 + "] s1.codePointAt(0)[" + s1.codePointAt(0)
-							+ "]");
-					return total + s1.codePointAt(0);
-				}, (a, b) -> {
-					System.out.println("combiner: a[" + a + "] b[" + b + "]");
-					return 1000000;
-				});
+		int streamResult = strList.stream().reduce(0, (total, s1) -> {
+			System.out.println(
+					"accumulator: total[" + total + "] s1[" + s1 + "] s1.codePointAt(0)[" + s1.codePointAt(0) + "]");
+			return total + s1.codePointAt(0);
+		}, (a, b) -> {
+			System.out.println("combiner: a[" + a + "] b[" + b + "]");
+			return 1000000;
+		});
 		System.out.println("streamResult: " + streamResult);
 
 		System.out.println("parallelStream test");
-		int parallelStreamResult = strList.parallelStream().reduce(
-				0,
-				(total, s2) -> {
-					System.out.println("accumulator: total[" + total + "] s2["
-							+ s2 + "] s2.codePointAt(0)[" + s2.codePointAt(0)
-							+ "]");
-					return total + s2.codePointAt(0);
-				}, (a, b) -> {
-					System.out.println("combiner: a[" + a + "] b[" + b + "]");
-					return a + b;
-				});
+		int parallelStreamResult = strList.parallelStream().reduce(0, (total, s2) -> {
+			System.out.println(
+					"accumulator: total[" + total + "] s2[" + s2 + "] s2.codePointAt(0)[" + s2.codePointAt(0) + "]");
+			return total + s2.codePointAt(0);
+		}, (a, b) -> {
+			System.out.println("combiner: a[" + a + "] b[" + b + "]");
+			return a + b;
+		});
 		System.out.println("parallelStreamResult: " + parallelStreamResult);
 
 		testTerminalOperationCollect();
 	}
 
 	public static void testTerminalOperationCollect() {
-		Stream<Integer> finiteStream = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-				1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-				1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-		Averager a = finiteStream.collect(Averager::new, Averager::accept,
-				Averager::combiner);
+		Stream<Integer> finiteStream = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3,
+				4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		Averager a = finiteStream.collect(Averager::new, Averager::accept, Averager::combiner);
 		System.out.println("Average " + a.average());
 
 		Stream<String> testStream = Stream.of("w", "o", "l", "f");
-		StringBuilder builder = testStream.collect(StringBuilder::new,
-				StringBuilder::append, StringBuilder::append);
+		StringBuilder builder = testStream.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append);
 		System.out.println(builder);
 
 		testStream = Stream.of("w", "o", "l", "f");
-		TreeSet<String> set = testStream.collect(TreeSet::new, TreeSet::add,
-				TreeSet::addAll);
+		TreeSet<String> set = testStream.collect(TreeSet::new, TreeSet::add, TreeSet::addAll);
 		System.out.println(set);
 
 		List<Integer> list = Arrays.asList(1, 2, 3, 4);
 		Stream<Integer> testInegerStream = list.parallelStream();
-		Averager x = testInegerStream.collect(Averager::new, Averager::accept,
-				Averager::combiner);
+		Averager x = testInegerStream.collect(Averager::new, Averager::accept, Averager::combiner);
 		System.out.println(x.average());
-		
+
 		testStream = Stream.of("D", "I", "N", "E", "S", "H");
-		ArrayList<String> arrayList = testStream.collect(Collectors
-				.toCollection(ArrayList::new));
+		ArrayList<String> arrayList = testStream.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(arrayList);
 
 		testStream = Stream.of("D", "I", "N", "E", "S", "H");
-		TreeSet<String> tree = testStream.collect(Collectors
-				.toCollection(TreeSet::new));
+		TreeSet<String> tree = testStream.collect(Collectors.toCollection(TreeSet::new));
 		System.out.println(tree);
 
 		testStream = Stream.of("D", "I", "N", "E", "S", "H");
-		HashSet<String> hashSet = testStream.collect(Collectors
-				.toCollection(HashSet::new));
+		HashSet<String> hashSet = testStream.collect(Collectors.toCollection(HashSet::new));
 		System.out.println(hashSet);
 
 		testStream = Stream.of("D", "I", "N", "E", "S", "H");
@@ -290,17 +248,15 @@ public class TestBuiltInFunctionalInterfaces {
 	}
 
 	public static void testIntermediateOperation() {
-		Stream<String> finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh",
-				"Umesh", "Anoop", "Dinker");
+		Stream<String> finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop", "Dinker");
 		Predicate<String> filter = (s) -> s.startsWith("Di");
-		Stream<String> intermediateStream = finiteStreamOfStrings
-				.filter(filter); // intermediate Operation
+		Stream<String> intermediateStream = finiteStreamOfStrings.filter(filter); // intermediate
+																					// Operation
 
 		intermediateStream.forEach(System.out::println); // Terminal Operation
 
-		Stream<Item> finiteStreamOfObjects = Stream.of(new Item("Biscuit",
-				10.5, 1), new Item("Soap", 15, 2), new Item("Biscuit", 30, 1),
-				new Item("Biscuit", 25, 1));
+		Stream<Item> finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1), new Item("Soap", 15, 2),
+				new Item("Biscuit", 30, 1), new Item("Biscuit", 25, 1));
 		Stream<Item> distinctObjects = finiteStreamOfObjects.distinct(); // intermediate
 																			// operation
 		System.out.println("Distinct :" + distinctObjects.count());
@@ -313,8 +269,7 @@ public class TestBuiltInFunctionalInterfaces {
 		infiniteStream.limit(115).skip(112).forEach(System.out::println);
 		;
 
-		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop",
-				"Dinker");
+		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop", "Dinker");
 		Stream<Integer> lenthStream = finiteStreamOfStrings.map(String::length);
 
 		lenthStream.forEach(System.out::println);
@@ -324,8 +279,7 @@ public class TestBuiltInFunctionalInterfaces {
 		List<String> l3 = Arrays.asList("Mango", "Banana", "Apple");
 		Stream<List<String>> finiteStreamList = Stream.of(l1, l2, l3);
 		Stream<List<String>> finiteStreamList1 = Stream.of(l1, l2, l3);
-		System.out.println("finiteStreamList1 count "
-				+ finiteStreamList1.count());
+		System.out.println("finiteStreamList1 count " + finiteStreamList1.count());
 		Stream<String> temp = finiteStreamList.flatMap(l -> l.stream());
 
 		// System.out.println("temp count " + temp2.count());
@@ -333,8 +287,7 @@ public class TestBuiltInFunctionalInterfaces {
 											// operation
 											// flatmap
 
-		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop",
-				"2Dinker", "dinesh");
+		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop", "2Dinker", "dinesh");
 		finiteStreamOfStrings.sorted().forEach(System.out::println); // Intermediate
 																		// operation
 																		// sorted
@@ -342,32 +295,30 @@ public class TestBuiltInFunctionalInterfaces {
 																		// natural
 																		// ordering.
 
-		finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1),
-				new Item("Soap", 15, 2), new Item("Oil", 30, 1), new Item(
-						"Biscuit", 25, 1));
+		finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1), new Item("Soap", 15, 2), new Item("Oil", 30, 1),
+				new Item("Biscuit", 25, 1));
 		finiteStreamOfObjects.sorted((i1, i2) -> {
 			return new Double(i1.getMoney() - i2.getMoney()).intValue();
 		}).forEach(System.out::println); // Intermediate operation sort using
 											// comparater
 
-		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop",
-				"Dinker");
+		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop", "Dinker");
 		long c = finiteStreamOfStrings.peek(System.out::println).count(); // Peek
 																			// with
 																			// terminal
 																			// operation
 		System.out.println(c);
-		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop",
-				"Dinker");
-		long count = finiteStreamOfStrings.filter(s -> s.contains("es"))
-				.peek(System.out::println).count();
+		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop", "Dinker");
+		long count = finiteStreamOfStrings.filter(s -> s.contains("es")).peek(System.out::println).count();
 
 		System.out.println("count:" + count);
-		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop",
-				"Dinker");
-		finiteStreamOfStrings.peek(System.out::println).skip(4)
-				.forEach(System.out::println); // Peek with intermediate and
-												// Terminal operation
+		finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop", "Dinker");
+		finiteStreamOfStrings.peek(System.out::println).skip(4).forEach(System.out::println); // Peek
+																								// with
+																								// intermediate
+																								// and
+																								// Terminal
+																								// operation
 
 		List<String> stringList = Arrays.asList("1", "1", "2", "3", "4");
 
@@ -377,7 +328,7 @@ public class TestBuiltInFunctionalInterfaces {
 		List<Character> chars = new ArrayList<Character>();
 		numbers.add(1);
 		chars.add('a');
-		
+
 		Stream<List<?>> mixedFiniteStream = Stream.of(numbers, chars);
 		mixedFiniteStream.peek(l -> l.remove(0)).forEach(System.out::println); // Bad
 																				// use
@@ -390,8 +341,7 @@ public class TestBuiltInFunctionalInterfaces {
 		System.out.println(opt1.orElse((double) 0));
 		System.out.println(opt1.orElseGet(() -> Math.random()));
 
-		Optional<Double> opt2 = Operation
-				.average(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		Optional<Double> opt2 = Operation.average(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		opt2.ifPresent(System.out::println);
 		opt2.ifPresent((s) -> System.out.println(s));
 
@@ -450,8 +400,7 @@ public class TestBuiltInFunctionalInterfaces {
 		System.out.println("Is empty p2" + p2.test("Dinesh"));
 
 		BiPredicate<String, String> bPredicate1 = String::startsWith;
-		BiPredicate<String, String> bPredicate2 = (ss1, ss2) -> ss1
-				.startsWith(ss2);
+		BiPredicate<String, String> bPredicate2 = (ss1, ss2) -> ss1.startsWith(ss2);
 
 		System.out.println(bPredicate1.test("Dinesh", "Din"));
 		System.out.println(bPredicate2.test("Din", "Dinesh"));
@@ -463,8 +412,7 @@ public class TestBuiltInFunctionalInterfaces {
 		System.out.println(f2.apply("Sachin"));
 
 		BiFunction<String, Integer, String> bFunction1 = String::substring;
-		BiFunction<String, Integer, String> bFunction2 = (ss1, ss2) -> ss1
-				.substring(ss2);
+		BiFunction<String, Integer, String> bFunction2 = (ss1, ss2) -> ss1.substring(ss2);
 		System.out.println(bFunction1.apply("I am loving it", 2));
 		System.out.println(bFunction2.apply("Good Bye", 5));
 
@@ -532,11 +480,8 @@ public class TestBuiltInFunctionalInterfaces {
 		// Using statistics
 		intStream = IntStream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		IntSummaryStatistics statistics = intStream.summaryStatistics();
-		System.out
-				.println("Average:" + statistics.getAverage() + " Count:"
-						+ statistics.getCount() + " Max:" + statistics.getMax()
-						+ " Min:" + statistics.getMin() + " Sum:"
-						+ statistics.getSum());
+		System.out.println("Average:" + statistics.getAverage() + " Count:" + statistics.getCount() + " Max:"
+				+ statistics.getMax() + " Min:" + statistics.getMin() + " Sum:" + statistics.getSum());
 
 	}
 
@@ -560,8 +505,7 @@ public class TestBuiltInFunctionalInterfaces {
 	}
 
 	public static void testCollectingResultsPredefinedCollectors() {
-		Stream<String> finiteStreamOfStrings = Stream.of("lions", "tigers",
-				"beers", "monkeys");
+		Stream<String> finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
 
 		// Convert a Stream of Strings in a Single String
 		// 1. By using reduce function
@@ -570,302 +514,221 @@ public class TestBuiltInFunctionalInterfaces {
 		System.out.println("reduction : " + s);
 
 		// 2. By using predefined collector
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
 		s = finiteStreamOfStrings.collect(Collectors.joining());
 		System.out.println("predefined collector joining : " + s);
 
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
 		s = finiteStreamOfStrings.collect(Collectors.joining(","));
 		System.out.println("predefined collector joining ,: " + s);
 
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
 		s = finiteStreamOfStrings.collect(Collectors.joining(",", "-", ":"));
 		System.out.println("predefined collector joining ,: " + s);
 
 		// Calculate average length for Strings present in a Stream.
 		// 1. Using IntStream
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		Stream<Integer> lenthOfStrings = finiteStreamOfStrings
-				.map(String::length);
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		Stream<Integer> lenthOfStrings = finiteStreamOfStrings.map(String::length);
 		IntStream intStream = lenthOfStrings.mapToInt(i -> i);
-		System.out.println("IntStream Average: "
-				+ intStream.average().getAsDouble());
+		System.out.println("IntStream Average: " + intStream.average().getAsDouble());
 
 		// 2. Using predefined collector
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
 
-		System.out.println("Collector Average: "
-				+ finiteStreamOfStrings.collect(Collectors
-						.averagingInt(String::length)));
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		System.out.println("Collector Average: "
-				+ finiteStreamOfStrings.collect(Collectors
-						.averagingDouble(String::length)));
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		System.out.println("Collector Average: "
-				+ finiteStreamOfStrings.collect(Collectors
-						.averagingLong(String::length)));
+		System.out.println(
+				"Collector Average: " + finiteStreamOfStrings.collect(Collectors.averagingInt(String::length)));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		System.out.println(
+				"Collector Average: " + finiteStreamOfStrings.collect(Collectors.averagingDouble(String::length)));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		System.out.println(
+				"Collector Average: " + finiteStreamOfStrings.collect(Collectors.averagingLong(String::length)));
 
 		// Converting Stream elements in a collection
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		ArrayList<String> listFilteredStrings = finiteStreamOfStrings.filter(
-				a -> a.endsWith("rs")).collect(
-				Collectors.toCollection(ArrayList::new));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		ArrayList<String> listFilteredStrings = finiteStreamOfStrings.filter(a -> a.endsWith("rs"))
+				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(listFilteredStrings);
 
-		Stream<Item> finiteStreamOfObjects = Stream.of(new Item("Biscuit",
-				10.5, 1), new Item("Soap", 15, 2), new Item("Biscuit", 30, 1),
-				new Item("Biscuit", 25, 1));
-		ArrayList<Item> listFilteredItems = finiteStreamOfObjects.filter(
-				a -> a.getItemName().equals("Biscuit")).collect(
-				Collectors.toCollection(ArrayList::new));
+		Stream<Item> finiteStreamOfObjects = Stream.of(new Item("Biscuit", 10.5, 1), new Item("Soap", 15, 2),
+				new Item("Biscuit", 30, 1), new Item("Biscuit", 25, 1));
+		ArrayList<Item> listFilteredItems = finiteStreamOfObjects.filter(a -> a.getItemName().equals("Biscuit"))
+				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(listFilteredItems);
 
 		// Counting number Of elements in a Stream.
 		// 1. Using Terminal Operation
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		System.out.println("Finite Stream count : "
-				+ finiteStreamOfStrings.count());
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		System.out.println("Finite Stream count : " + finiteStreamOfStrings.count());
 
 		// 2. Using predefined collector
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		System.out.println("Collector count : "
-				+ finiteStreamOfStrings.collect(Collectors.counting()));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		System.out.println("Collector count : " + finiteStreamOfStrings.collect(Collectors.counting()));
 
 		// Min element from Stream.
 		// 1. Using Terminal operation
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		System.out.println(finiteStreamOfStrings.min((s1, s2) -> s1.length()
-				- s2.length()));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		System.out.println(finiteStreamOfStrings.min((s1, s2) -> s1.length() - s2.length()));
 
 		// 2. Using predefined Collector
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
 
-		Optional optional = finiteStreamOfStrings.collect(Collectors.minBy((
-				String s1, String s2) -> s1.length() - s2.length()));
+		Optional optional = finiteStreamOfStrings
+				.collect(Collectors.minBy((String s1, String s2) -> s1.length() - s2.length()));
 		System.out.println(optional + " " + optional.get());
 
 		// Max element from Stream
 		// 1. Using Terminal operation
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		System.out.println(finiteStreamOfStrings.max((s1, s2) -> s1.length()
-				- s2.length()));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		System.out.println(finiteStreamOfStrings.max((s1, s2) -> s1.length() - s2.length()));
 		// 2. Using predefined Collector
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		System.out.println(finiteStreamOfStrings.collect(Collectors.maxBy((
-				String s1, String s2) -> s1.length() - s2.length())));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		System.out.println(
+				finiteStreamOfStrings.collect(Collectors.maxBy((String s1, String s2) -> s1.length() - s2.length())));
 
 		// Sum
 		// 1. mapToInput Sum
-		Stream<Integer> finiteStreamOfIntegers = Stream.of(1, 2, 3, 4, 5, 6, 7,
-				8, 9);
-		System.out.println("mapTOInt Sum: "
-				+ finiteStreamOfIntegers.mapToInt(i -> i).sum());
+		Stream<Integer> finiteStreamOfIntegers = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+		System.out.println("mapTOInt Sum: " + finiteStreamOfIntegers.mapToInt(i -> i).sum());
 		// 2. using collector
 		finiteStreamOfIntegers = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
-		System.out.println("collect Sum: "
-				+ finiteStreamOfIntegers.collect(Collectors
-						.summingInt(i -> (Integer) i)));
+		System.out.println("collect Sum: " + finiteStreamOfIntegers.collect(Collectors.summingInt(i -> (Integer) i)));
 
 		// Summarizing on integer content
 		// 1. Using stream and summaryStatistics
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
 		intStream = finiteStreamOfStrings.mapToInt(String::length);
-		IntSummaryStatistics intSummaryStatistics = intStream
-				.summaryStatistics();
-		System.out.println("IntSummaryStatistics Average:"
-				+ intSummaryStatistics.getAverage() + " Count:"
-				+ intSummaryStatistics.getCount() + " Max:"
-				+ intSummaryStatistics.getMax() + " min:"
-				+ intSummaryStatistics.getMin() + " sum:"
-				+ intSummaryStatistics.getSum());
+		IntSummaryStatistics intSummaryStatistics = intStream.summaryStatistics();
+		System.out.println("IntSummaryStatistics Average:" + intSummaryStatistics.getAverage() + " Count:"
+				+ intSummaryStatistics.getCount() + " Max:" + intSummaryStatistics.getMax() + " min:"
+				+ intSummaryStatistics.getMin() + " sum:" + intSummaryStatistics.getSum());
 
 		// 2. Using collector.
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		DoubleSummaryStatistics doubleSummaryStatistics = (DoubleSummaryStatistics) finiteStreamOfStrings
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		DoubleSummaryStatistics doubleSummaryStatistics = finiteStreamOfStrings
 				.collect(Collectors.summarizingDouble(String::length));
-		System.out.println("Average:" + doubleSummaryStatistics.getAverage()
-				+ " Count:" + doubleSummaryStatistics.getCount() + " Max:"
-				+ doubleSummaryStatistics.getMax() + " min:"
-				+ doubleSummaryStatistics.getMin() + " sum:"
-				+ doubleSummaryStatistics.getSum());
+		System.out.println("Average:" + doubleSummaryStatistics.getAverage() + " Count:"
+				+ doubleSummaryStatistics.getCount() + " Max:" + doubleSummaryStatistics.getMax() + " min:"
+				+ doubleSummaryStatistics.getMin() + " sum:" + doubleSummaryStatistics.getSum());
 
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		LongSummaryStatistics longSummaryStatistics = (LongSummaryStatistics) finiteStreamOfStrings
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		LongSummaryStatistics longSummaryStatistics = finiteStreamOfStrings
 				.collect(Collectors.summarizingLong(String::length));
-		System.out.println("Average:" + longSummaryStatistics.getAverage()
-				+ " Count:" + longSummaryStatistics.getCount() + " Max:"
-				+ longSummaryStatistics.getMax() + " min:"
-				+ longSummaryStatistics.getMin() + " sum:"
-				+ longSummaryStatistics.getSum());
+		System.out.println("Average:" + longSummaryStatistics.getAverage() + " Count:"
+				+ longSummaryStatistics.getCount() + " Max:" + longSummaryStatistics.getMax() + " min:"
+				+ longSummaryStatistics.getMin() + " sum:" + longSummaryStatistics.getSum());
 
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		intSummaryStatistics = (IntSummaryStatistics) finiteStreamOfStrings
-				.collect(Collectors.summarizingInt(String::length));
-		System.out.println("Average:" + intSummaryStatistics.getAverage()
-				+ " Count:" + intSummaryStatistics.getCount() + " Max:"
-				+ intSummaryStatistics.getMax() + " min:"
-				+ intSummaryStatistics.getMin() + " sum:"
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		intSummaryStatistics = finiteStreamOfStrings.collect(Collectors.summarizingInt(String::length));
+		System.out.println("Average:" + intSummaryStatistics.getAverage() + " Count:" + intSummaryStatistics.getCount()
+				+ " Max:" + intSummaryStatistics.getMax() + " min:" + intSummaryStatistics.getMin() + " sum:"
 				+ intSummaryStatistics.getSum());
 
 		// Collecting Stream elements in a List
 
 		// 1. Using Collector
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "tigers");
-		ArrayList<String> list = (ArrayList<String>) finiteStreamOfStrings
-				.collect(Collectors.toList());
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "tigers");
+		ArrayList<String> list = (ArrayList<String>) finiteStreamOfStrings.collect(Collectors.toList());
 		System.out.println(list);
 
 		// Collecting Stream elements in a Set
 
 		// 1. Using Collector
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "tigers");
-		HashSet<String> set = (HashSet<String>) finiteStreamOfStrings
-				.collect(Collectors.toSet());
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "tigers");
+		HashSet<String> set = (HashSet<String>) finiteStreamOfStrings.collect(Collectors.toSet());
 		System.out.println(set);
 
 		// Collecting Stream elements in a Collection
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "tigers");
-		list = finiteStreamOfStrings.collect(Collectors
-				.toCollection(ArrayList::new));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "tigers");
+		list = finiteStreamOfStrings.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(list);
 
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "tigers");
-		set = finiteStreamOfStrings.collect(Collectors
-				.toCollection(HashSet::new));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "tigers");
+		set = finiteStreamOfStrings.collect(Collectors.toCollection(HashSet::new));
 		System.out.println(set);
 
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "tigers");
-		TreeSet<String> treeSet = finiteStreamOfStrings.collect(Collectors
-				.toCollection(TreeSet::new));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "tigers");
+		TreeSet<String> treeSet = finiteStreamOfStrings.collect(Collectors.toCollection(TreeSet::new));
 		System.out.println(treeSet);
 
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "tigers");
-		ArrayDeque<String> queue = finiteStreamOfStrings.collect(Collectors
-				.toCollection(ArrayDeque::new));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "tigers");
+		ArrayDeque<String> queue = finiteStreamOfStrings.collect(Collectors.toCollection(ArrayDeque::new));
 		System.out.println(queue);
 
 		// Collecting stream elements in a Hashmap
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		Map<Object, Integer> map = finiteStreamOfStrings.collect(Collectors
-				.toMap(ss -> ss, String::length));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		Map<Object, Integer> map = finiteStreamOfStrings.collect(Collectors.toMap(ss -> ss, String::length));
 		System.out.println(map);
 
 		// Collecting stream elements in a Treemap
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
 		TreeMap<Integer, String> treeMap1 = finiteStreamOfStrings
-				.collect(Collectors.toMap(String::length, ss -> ss,
-						(ss1, ss2) -> ss1 + "**" + ss2, TreeMap::new));
+				.collect(Collectors.toMap(String::length, ss -> ss, (ss1, ss2) -> ss1 + "**" + ss2, TreeMap::new));
 		System.out.println(treeMap1);
 
 		// Collecting stream elements in a map .. when we have same keys
 		// scenerio
-		finiteStreamOfStrings = Stream
-				.of("lions", "tigers", "beers", "monkeys");
-		Map<Integer, String> map2 = finiteStreamOfStrings.collect(Collectors
-				.toMap(String::length, ss -> ss,
-						(String ss1, String ss2) -> ss1 + "," + ss2));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys");
+		Map<Integer, String> map2 = finiteStreamOfStrings
+				.collect(Collectors.toMap(String::length, ss -> ss, (String ss1, String ss2) -> ss1 + "," + ss2));
 		System.out.println(map2);
 
 		// Grouping elements of a Stream by length and getting a map of length
 		// and corresponding list of stream elements.
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "lions");
-		Map<Integer, List<String>> map3 = finiteStreamOfStrings
-				.collect(Collectors.groupingBy(String::length));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "lions");
+		Map<Integer, List<String>> map3 = finiteStreamOfStrings.collect(Collectors.groupingBy(String::length));
 		System.out.println(map3);
 
 		// Grouping elements of a Stream by length and getting a map of length
 		// and corresponding set of stream elements in a HashMap.
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "lions");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "lions");
 		HashMap<Integer, Set<String>> map4 = (HashMap<Integer, Set<String>>) finiteStreamOfStrings
-				.collect(Collectors.groupingBy(String::length,
-						Collectors.toSet()));
+				.collect(Collectors.groupingBy(String::length, Collectors.toSet()));
 		System.out.println(map4);
 
 		// Grouping elements of a Stream by length and corresponding Set of
 		// elements in a TreeMap
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "lions");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "lions");
 		TreeMap<Integer, Set<String>> map5 = finiteStreamOfStrings
-				.collect(Collectors.groupingBy(String::length, TreeMap::new,
-						Collectors.toSet()));
+				.collect(Collectors.groupingBy(String::length, TreeMap::new, Collectors.toSet()));
 		System.out.println(map5);
 
 		// Grouping elements of a stream by length and corresponding count of
 		// elements in a HashMap
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "lions");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "lions");
 		HashMap<Integer, Long> map6 = (HashMap<Integer, Long>) finiteStreamOfStrings
-				.collect(Collectors.groupingBy(String::length,
-						Collectors.counting()));
+				.collect(Collectors.groupingBy(String::length, Collectors.counting()));
 		System.out.println(map6);
 
 		// Partitioning based on length of elements of the Stream
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "lions");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "lions");
 		Map<Boolean, List<String>> partition = finiteStreamOfStrings
 				.collect(Collectors.partitioningBy(sss -> sss.length() <= 5));
 		System.out.println(partition);
 		System.out.println(partition.getClass());
 
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "lions");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "lions");
 		Map<Boolean, TreeSet<String>> partition2 = finiteStreamOfStrings
-				.collect(Collectors.partitioningBy(sss -> sss.length() < 7,
-						Collectors.toCollection(TreeSet::new)));
+				.collect(Collectors.partitioningBy(sss -> sss.length() < 7, Collectors.toCollection(TreeSet::new)));
 		System.out.println(partition2);
 		System.out.println(partition2.getClass());
 
 		// Mapping
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "lions");
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "lions");
 		Optional opt = finiteStreamOfStrings
-				.collect(Collectors.mapping(ss -> ss.charAt(0),
-						Collectors.minBy(Comparator.naturalOrder())));
+				.collect(Collectors.mapping(ss -> ss.charAt(0), Collectors.minBy(Comparator.naturalOrder())));
 		System.out.println(opt + " " + opt.get());
 
-		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers",
-				"monkeys", "lions");
-		Map<Integer, Optional<Character>> map8 = finiteStreamOfStrings
-				.collect(Collectors.groupingBy(
-						String::length,
-						Collectors.mapping(ss -> ss.charAt(0),
-								Collectors.minBy(Comparator.naturalOrder()))));
+		finiteStreamOfStrings = Stream.of("lions", "tigers", "beers", "monkeys", "lions");
+		Map<Integer, Optional<Character>> map8 = finiteStreamOfStrings.collect(Collectors.groupingBy(String::length,
+				Collectors.mapping(ss -> ss.charAt(0), Collectors.minBy(Comparator.naturalOrder()))));
 
 		System.out.println(map8);
 
 	}
 
-	public static void threeDigitWithoutFunctionalProgramming(
-			Optional<Integer> optInteger) {
+	public static void threeDigitWithoutFunctionalProgramming(Optional<Integer> optInteger) {
 		System.out.print(" " + optInteger.isPresent());
 		if (optInteger.isPresent()) {
 
@@ -878,11 +741,9 @@ public class TestBuiltInFunctionalInterfaces {
 		}
 	}
 
-	public static void threeDigitWithFunctionalProgramming(
-			Optional<Integer> optInteger) {
+	public static void threeDigitWithFunctionalProgramming(Optional<Integer> optInteger) {
 		System.out.print(" " + optInteger.isPresent());
-		optInteger.map(n -> n + "").filter(s -> s.length() == 3)
-				.ifPresent(System.out::println);
+		optInteger.map(n -> n + "").filter(s -> s.length() == 3).ifPresent(System.out::println);
 		;
 	}
 }
@@ -924,7 +785,7 @@ class Operation {
 		for (int number : numbers)
 			sum += number;
 		return Optional.ofNullable((double) (sum / numbers.length));
-		
+
 	}
 }
 
@@ -963,8 +824,7 @@ class Item {
 	@Override
 	public boolean equals(Object paramObject) {
 		System.out.println("Inside equals");
-		if (null == paramObject
-				|| !(paramObject.getClass().equals(this.getClass())))
+		if (null == paramObject || !(paramObject.getClass().equals(this.getClass())))
 			return false;
 		if (this == paramObject)
 			return true;

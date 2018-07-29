@@ -30,29 +30,25 @@ public class TestExecutorService {
 	 * @throws InterruptedException
 	 * @throws TimeoutException
 	 */
-	public static void main(String[] args) throws InterruptedException,
-			ExecutionException, TimeoutException {
-		System.out.println("Processors : "
-				+ Runtime.getRuntime().availableProcessors());
-		//testSingleThreadExecutorAndShutdown();
+	public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException {
+		System.out.println("Processors : " + Runtime.getRuntime().availableProcessors());
+		// testSingleThreadExecutorAndShutdown();
 		// testSingleThreadExecutorAndShutDownNow();
-		//testSingleThreadExecutorAndSubmit();
+		// testSingleThreadExecutorAndSubmit();
 		// testSingleThreadExecutorSubmitFuture();
-		//testSingleThreadExecutorWithCallable();
-		//testTasksAsCollections();
+		testSingleThreadExecutorWithCallable();
+		// testTasksAsCollections();
 		// testAmbiguousLambdas();
-		testConcurrencyWithFixedThreadPool();
-		
-		
-		//testSchedulingNonRepeatitiveRunnableTaskwithDelay();
-		//testSchedulingNonRepeatitiveCallableTaskwithDelay();
-		//testScheduleRepeatitiveTaskAtFixedRate();
-		//testScheduleRepeatitiveTaskAtFixedInterval();
-		//testSynschronization();
+		// testConcurrencyWithFixedThreadPool();
+
+		// testSchedulingNonRepeatitiveRunnableTaskwithDelay();
+		// testSchedulingNonRepeatitiveCallableTaskwithDelay();
+		// testScheduleRepeatitiveTaskAtFixedRate();
+		// testScheduleRepeatitiveTaskAtFixedInterval();
+		// testSynschronization();
 	}
 
-	public static void testSingleThreadExecutorAndShutdown()
-			throws InterruptedException {
+	public static void testSingleThreadExecutorAndShutdown() throws InterruptedException {
 		ExecutorService service = null;
 		try {
 			service = Executors.newSingleThreadExecutor();
@@ -64,13 +60,12 @@ public class TestExecutorService {
 				}
 			});
 
-			service.execute(() -> System.out
-					.println("Lambda Thread Implementation"));
+			service.execute(() -> System.out.println("Lambda Thread Implementation"));
 		} finally {
 			if (null != service) {
 				service.awaitTermination(10, TimeUnit.SECONDS);
 				service.shutdown();
-				
+
 			}
 
 		}
@@ -92,8 +87,7 @@ public class TestExecutorService {
 					System.out.println("Thread 2 " + i + "= " + i);
 				}
 			});
-			service.execute(() -> System.out
-					.println("Lambda Thread Implementation"));
+			service.execute(() -> System.out.println("Lambda Thread Implementation"));
 		} finally {
 			if (null != service) {
 				List<Runnable> task = service.shutdownNow();
@@ -107,37 +101,33 @@ public class TestExecutorService {
 		ExecutorService service = null;
 		Future<?> task1 = null;
 		Future<?> task2 = null;
-		
+
 		try {
 			service = Executors.newSingleThreadExecutor();
 			System.out.println("Begin ..");
 			task1 = service.submit(() -> {
 				for (int i = 0; i < 100; i++) {
 
-					System.out.println(Thread.currentThread().getName()
-							+ " Executing** " + i);
+					System.out.println(Thread.currentThread().getName() + " Executing** " + i);
 					try {
 						Thread.sleep(1000);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-					e.printStackTrace();
+						e.printStackTrace();
+					}
 				}
-			}
-		})	;
+			});
 			System.out.println("*********Sbmitted**********");
 			task2 = service.submit(() -> {
 				for (int i = 0; i < 100; i++) {
 
-					System.out.println(Thread.currentThread().getName()
-							+ " Executing " + i);
+					System.out.println(Thread.currentThread().getName() + " Executing " + i);
 					try {
 						Thread.sleep(1000);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-					e.printStackTrace();
+						e.printStackTrace();
+					}
 				}
-			}
-		})	;
+			});
 		} finally {
 			if (null != service) {
 				System.out.println("Shutting Down ");
@@ -146,16 +136,14 @@ public class TestExecutorService {
 				System.out.println("Shut Down Completed");
 			}
 		}
-		System.out.println("Task1 completed " + task1.isDone()
-				+ " Task1 cancelled " + task1.isCancelled());
-		System.out.println("Task2 completed " + task2.isDone()
-				+ " Task2 cancelled " + task2.isCancelled());
-		
+		System.out.println("Task1 completed " + task1.isDone() + " Task1 cancelled " + task1.isCancelled());
+		System.out.println("Task2 completed " + task2.isDone() + " Task2 cancelled " + task2.isCancelled());
+
 		System.out.println("End ..");
+
 	}
 
-	public static void testSingleThreadExecutorSubmitFuture()
-			throws InterruptedException, ExecutionException {
+	public static void testSingleThreadExecutorSubmitFuture() throws InterruptedException, ExecutionException {
 		ExecutorService service = null;
 		Future<?> task1 = null;
 		Future<?> task2 = null;
@@ -163,24 +151,20 @@ public class TestExecutorService {
 			service = Executors.newSingleThreadExecutor();
 			System.out.println("Begin :");
 			task1 = service.submit(() -> System.out.println("Thread 1"));
-			
+
 			task2 = service.submit(() -> {
 				for (int i = 0; i < 1000000000; i++) {
 				}
 
 				// System.out.println("Thread 2 " + i);
-				});
-			System.out.println("task1 " + task1.isCancelled() + " "
-					+ task1.isDone());
-			System.out.println("task2 " + task2.isCancelled() + " "
-					+ task2.isDone());
+			});
+			System.out.println("task1 " + task1.isCancelled() + " " + task1.isDone());
+			System.out.println("task2 " + task2.isCancelled() + " " + task2.isDone());
 
 			System.out.println("task1 " + task1.get());
 			System.out.println("task2 " + task2.get(10, TimeUnit.SECONDS));
-			System.out.println("task1 " + task1.isCancelled() + " "
-					+ task1.isDone());
-			System.out.println("task2 " + task2.isCancelled() + " "
-					+ task2.isDone());
+			System.out.println("task1 " + task1.isCancelled() + " " + task1.isDone());
+			System.out.println("task2 " + task2.isCancelled() + " " + task2.isDone());
 		} catch (TimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -202,7 +186,7 @@ public class TestExecutorService {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
-			
+
 		} finally {
 			System.out.println("finally..");
 			if (null != service) {
@@ -277,20 +261,17 @@ public class TestExecutorService {
 		ScheduledFuture<?> future = null;
 		try {
 			service = Executors.newSingleThreadScheduledExecutor();
-			
-			future = service.schedule(
-					() -> System.out.println("Running Delayed Task"), 999,
-					TimeUnit.MILLISECONDS);
+
+			future = service.schedule(() -> System.out.println("Running Delayed Task"), 999, TimeUnit.MILLISECONDS);
 		} finally {
 			System.out.println("finally executing");
 			if (null != service)
 				service.shutdown();
 		}
-		
+
 		try {
 			if (null != service) {
-				System.out.println("Task Completed : "
-						+ service.awaitTermination(1, TimeUnit.SECONDS));
+				System.out.println("Task Completed : " + service.awaitTermination(1, TimeUnit.SECONDS));
 
 				if (!service.isTerminated())
 					System.out.println("Future :" + future.cancel(true));
@@ -307,11 +288,9 @@ public class TestExecutorService {
 		ScheduledFuture<Temp> future = null;
 		try {
 			service = Executors.newSingleThreadScheduledExecutor();
-			future = service.schedule(new CallableExample(), 10,
-					TimeUnit.SECONDS);
+			future = service.schedule(new CallableExample(), 10, TimeUnit.SECONDS);
 			System.out.println("************scheduled************");
-			future = service.schedule(new CallableExample(), 5,
-					TimeUnit.SECONDS);
+			future = service.schedule(new CallableExample(), 5, TimeUnit.SECONDS);
 			System.out.println("************scheduled************");
 		} finally {
 			try {
@@ -338,22 +317,20 @@ public class TestExecutorService {
 		ScheduledExecutorService service = null;
 		try {
 			service = Executors.newSingleThreadScheduledExecutor();
-			
-			service.scheduleAtFixedRate(
-					() -> {
-						System.out.println("Task..");
-						for (int i = 0; i < 2; i++) {
-							System.out.println(Thread.currentThread().getName()
-									+ " " + i);
-						}
-					}, 0, 1, TimeUnit.MILLISECONDS);
+
+			service.scheduleAtFixedRate(() -> {
+				System.out.println("Task..");
+				for (int i = 0; i < 2; i++) {
+					System.out.println(Thread.currentThread().getName() + " " + i);
+				}
+			}, 0, 1, TimeUnit.MILLISECONDS);
 		} finally {
 			System.out.println("finally....");
 			if (null != service) {
 
 				try {
 					Thread.sleep(1000);
-					//service.shutdown();
+					// service.shutdown();
 					service.awaitTermination(5, TimeUnit.SECONDS);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -403,8 +380,7 @@ public class TestExecutorService {
 				task = () -> {
 					for (int i = 0; i < 10000; i++) {
 					}
-					System.out.println("Task "
-							+ Thread.currentThread().getName());
+					System.out.println("Task " + Thread.currentThread().getName());
 					return "";
 				};
 				taskList.add(task);
@@ -424,7 +400,7 @@ public class TestExecutorService {
 
 	public static void testConcurrencyWithCachedThreadPool() {
 		ExecutorService service = null;
-		
+
 		System.out.println();
 		try {
 			service = Executors.newCachedThreadPool();
@@ -434,8 +410,7 @@ public class TestExecutorService {
 				task = () -> {
 					for (int i = 0; i < 10000; i++) {
 					}
-					System.out.println("Task "
-							+ Thread.currentThread().getName());
+					System.out.println("Task " + Thread.currentThread().getName());
 					return "";
 				};
 				taskList.add(task);
@@ -532,8 +507,7 @@ class CallableExample implements Callable<Temp> {
 
 	@Override
 	public Temp call() throws Exception {
-		System.out
-				.println("Running call : " + Thread.currentThread().getName());
+		System.out.println("Running call : " + Thread.currentThread().getName());
 		return new Temp();
 	}
 

@@ -35,7 +35,7 @@ import com.example.demo.util.Helper;
  */
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-@SpringBootTest(properties = "spring.profiles.active=test")
+@SpringBootTest
 public class HelloWorldControllerTestSpringControllerApp {
 
 	@MockBean

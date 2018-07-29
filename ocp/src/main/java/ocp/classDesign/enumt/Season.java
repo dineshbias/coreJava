@@ -15,6 +15,7 @@ public enum Season {
 
 		}
 
+		@Override
 		public void testFUN() {
 			System.out.println("WINTER Inside enum value function");
 		}
@@ -23,7 +24,7 @@ public enum Season {
 		@Override
 		public void printhours() {
 			System.out.println("SPRING printhours");
-			
+
 		}
 	},
 	SUMMER("HIGH") {
@@ -44,7 +45,7 @@ public enum Season {
 	private String intensity;
 
 	Season(String s) {
-		System.out.println("Parameterized Constructor "+ s);
+		System.out.println("Parameterized Constructor " + s);
 		intensity = s;
 	}
 
@@ -54,7 +55,6 @@ public enum Season {
 		System.out.println("Inside enum function");
 	}
 
-	
 	public static void main(String... varArgs) {
 		System.out.println("Running main ");
 		for (Season s : Season.values()) {
@@ -62,9 +62,9 @@ public enum Season {
 		}
 
 		Season summer = Season.SUMMER;
-		
-		System.out.println(summer +  " " + summer.intensity + " " + summer.name());
-		
+
+		System.out.println(summer + " " + summer.intensity + " " + summer.name());
+
 		switch (summer) {
 		case WINTER:
 			System.out.println("It is winter");
@@ -79,11 +79,11 @@ public enum Season {
 			System.out.println("It is fall");
 			break;
 		}
-		
+
 		Season.WINTER.testFUN();
 		Season.SPRING.testFUN();
 		Season.SPRING.printhours();
 		RuntimeException r;
 	}
-	
+
 }

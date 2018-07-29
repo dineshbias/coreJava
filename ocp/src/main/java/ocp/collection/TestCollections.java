@@ -7,7 +7,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,29 +28,25 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 public class TestCollections {
-	
-	
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-				
+
 		int[] i = new int[6];
 		String[] array = { "A", "B", "C" };
 		List<String> list = Arrays.asList(array);
-		
-		
-		//testArrays();
-		//testCollectionMethods();
-		
-		
-		testListMethods();
-		//testSetMethods();
-		//testQueueMethods();
-		
-		//testMapMethods();
-		//testConcurrentModification();
+
+		// testArrays();
+		// testCollectionMethods();
+
+		// testListMethods();
+		// testSetMethods();
+		// testQueueMethods();
+
+		testMapMethods();
+		testConcurrentModification();
 
 	}
 
@@ -63,7 +57,7 @@ public class TestCollections {
 		System.out.println("Array: " + fruits[0] + " " + fruits[1]);
 		System.out.print("List: ");
 		fruitsList.forEach((String s) -> System.out.print(" " + s));
-        	
+
 		// Changing List
 		System.out.println("");
 		fruitsList.set(1, "papaya");
@@ -96,35 +90,29 @@ public class TestCollections {
 		Collection<String> l4 = new ArrayList<String>();
 		l4.add("Test String");
 		l4.add("ABC");
-		
+
 		l2.addAll(l);
 		for (Object s : l2) {
 			System.out.println(s);
 		}
 
-		System.out.println("After   contains on collection Object "
-				+ l2.contains(l3));
-		System.out.println("After   containsAll on collection Object "
-				+ l2.containsAll(l3));
+		System.out.println("After   contains on collection Object " + l2.contains(l3));
+		System.out.println("After   containsAll on collection Object " + l2.containsAll(l3));
 
-		System.out.println("After   contains on Object "
-				+ l2.contains("Collection"));
+		System.out.println("After   contains on Object " + l2.contains("Collection"));
 
-		System.out.println("After   removeAll on collection Object "
-				+ l2.removeAll(l3));
+		System.out.println("After   removeAll on collection Object " + l2.removeAll(l3));
 
 		for (Object s : l2) {
 			System.out.println(s);
 		}
 
-		System.out.println("After   remove with Object   "
-				+ l.remove("Test String"));
+		System.out.println("After   remove with Object   " + l.remove("Test String"));
 		for (Object s : l) {
 			System.out.println(s);
 		}
-		
-		System.out.println("After   remove  with collection object "
-				+ l.remove(l4));
+
+		System.out.println("After   remove  with collection object " + l.remove(l4));
 		for (Object s : l) {
 			System.out.println(s);
 		}
@@ -156,7 +144,7 @@ public class TestCollections {
 		ArrayList<B> arrayList = new ArrayList<B>(30);
 		arrayList.add(new B(new C(), "100"));
 		arrayList.add(new B(new C(), "2"));
-		
+
 		System.out.println(arrayList);
 
 		Iterator<B> it = arrayList.iterator();
@@ -175,24 +163,19 @@ public class TestCollections {
 			System.out.print(arrayList.get(i).getName() + ",");
 
 		System.out.println();
-		System.out.println("Contains:"
-				+ arrayList.contains(new B(new C(), "1")));
+		System.out.println("Contains:" + arrayList.contains(new B(new C(), "1")));
 		for (int i = 0; i < 100; i++)
 			arrayList.add(new B(new C(), String.valueOf(i)));
 		System.out.println();
 
 		ArrayList<B> arrayList2 = new ArrayList<B>(12);
 		arrayList2.add(new B(new C(), "17"));
-		
-		System.out.println(arrayList.size() + " containsAll:"
-				+ arrayList.containsAll(arrayList2));
 
-		System.out.println("Index Of :"
-				+ arrayList.indexOf(new B(new C(), "21")));
-		System.out.println("Index Of :"
-				+ arrayList.indexOf(new B(new C(), "1")));
-		System.out.println("lastIndexOf Of :"
-				+ arrayList.lastIndexOf(new B(new C(), "1")));
+		System.out.println(arrayList.size() + " containsAll:" + arrayList.containsAll(arrayList2));
+
+		System.out.println("Index Of :" + arrayList.indexOf(new B(new C(), "21")));
+		System.out.println("Index Of :" + arrayList.indexOf(new B(new C(), "1")));
+		System.out.println("lastIndexOf Of :" + arrayList.lastIndexOf(new B(new C(), "1")));
 
 		arrayList2.add(null);
 		System.out.println("Before removal:" + arrayList2.size());
@@ -226,7 +209,7 @@ public class TestCollections {
 		System.out.println(vector.lastIndexOf(vector.firstElement()));
 
 		LinkedList<String> linkedList = new LinkedList<String>();
-		
+
 		linkedList.add("First");
 		linkedList.addLast("Last");
 		linkedList.add(2, "445");
@@ -234,19 +217,14 @@ public class TestCollections {
 		linkedList.offerFirst("1");
 		linkedList.offerLast("100");
 		System.out.println(linkedList);
-		System.out.println("linkedList.peekFirst()" + " ---- "
-				+ linkedList.peekFirst());
-		System.out.println("linkedList.peekLast()" + " ---- "
-				+ linkedList.peekLast());
+		System.out.println("linkedList.peekFirst()" + " ---- " + linkedList.peekFirst());
+		System.out.println("linkedList.peekLast()" + " ---- " + linkedList.peekLast());
 		linkedList.poll();
-		System.out.println("linkedList.peekLast()" + " ---- "
-				+ linkedList.peekLast());
+		System.out.println("linkedList.peekLast()" + " ---- " + linkedList.peekLast());
 		linkedList.poll();
-		System.out.println("linkedList.peekFirst()" + " ---- "
-				+ linkedList.peekFirst());
+		System.out.println("linkedList.peekFirst()" + " ---- " + linkedList.peekFirst());
 		linkedList.pollLast();
-		System.out.println(linkedList.peekLast() + " ---- "
-				+ linkedList.peekLast());
+		System.out.println(linkedList.peekLast() + " ---- " + linkedList.peekLast());
 	}
 
 	public static void testSetMethods() {
@@ -256,7 +234,7 @@ public class TestCollections {
 		set.add("Dinesh");
 		set.add(null);
 		set.add(null);
-		
+
 		System.out.println(set);
 
 		HashSet hashSet = new HashSet<B>();
@@ -264,7 +242,7 @@ public class TestCollections {
 			hashSet.add(new B(new C(), String.valueOf(i)));
 		System.out.println("*************");
 		hashSet.add(new B(new C(), String.valueOf(9)));
-		
+
 		System.out.println("*************");
 		System.out.println(hashSet);
 
@@ -278,8 +256,7 @@ public class TestCollections {
 			hashSet.add(new B(new C(), String.valueOf(i)));
 
 		System.out.println();
-		
-		
+
 		TreeSet<String> treeSet = new TreeSet();
 		treeSet.add("Dinesh");
 		treeSet.add("Joshi");
@@ -319,7 +296,7 @@ public class TestCollections {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		System.out.println("Size : " + q1.size());
 		for (; q1.size() > 0;)
 			System.out.print(q1.poll() + " ");
@@ -327,7 +304,7 @@ public class TestCollections {
 		ArrayDeque<String> arrayDeque = new ArrayDeque<String>();
 		arrayDeque.add("ChiefMinister");
 		arrayDeque.offer("StateMinister");
-		
+
 		arrayDeque.add("District Magistrate");
 		arrayDeque.offerFirst("Prime Minister");
 		System.out.println("\narrayDeque.poll()");
@@ -369,9 +346,7 @@ public class TestCollections {
 		System.out.println("\narrayDeque.poll");
 		for (; arrayDeque.size() > 0;)
 			System.out.print(arrayDeque.poll() + " ");
-		
-		
-		
+
 	}
 
 	public static void testMapMethods() {
@@ -379,7 +354,7 @@ public class TestCollections {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("A", "Z");
 		map.put("F", "W");
-		
+
 		map.put("CLARK", "Z");
 		map.put("BLAKE", "W");
 		map.put("FORD", "Z");
@@ -400,7 +375,7 @@ public class TestCollections {
 		map.put(null, null);
 		System.out.println(map);
 		System.out.println("Size : " + map.size());
-		
+
 		LinkedHashMap<String, String> map4 = new LinkedHashMap<String, String>();
 		map4.put("A", "Z");
 		map4.put("F", "W");
@@ -410,10 +385,14 @@ public class TestCollections {
 		System.out.println("Size : " + map4.size());
 		System.out.println(map4);
 		System.out.println(".................");
+
 		Set<Map.Entry<String, String>> entrySet = map.entrySet();
-		
-		
-		
+		Iterator<Entry<String, String>> it9 = entrySet.iterator();
+		while (it9.hasNext()) {
+			Entry e = it9.next();
+			System.out.println(e.getKey() + " " + e.getValue());
+		}
+
 		System.out.println("contains A : " + map.containsKey("A"));
 		System.out.println("contains Value Z : " + map.containsValue("Z"));
 		map.clear();
@@ -426,8 +405,7 @@ public class TestCollections {
 		map2.put("A", new B(new C(), "P"));
 		System.out.println("----");
 
-		System.out.println("Contains Key B : "
-				+ map2.containsValue(new B(new C(), "P")));
+		System.out.println("Contains Key B : " + map2.containsValue(new B(new C(), "P")));
 		System.out.println("Contains Value 006: " + map2.containsKey("006"));
 		System.out.println("----");
 
@@ -440,7 +418,7 @@ public class TestCollections {
 		Set<B> keySet = map3.keySet();
 		Iterator<B> it = keySet.iterator();
 		while (it.hasNext()) {
-			B b = (B) it.next();
+			B b = it.next();
 			System.out.println(b + " " + map3.get(b));
 		}
 
@@ -465,20 +443,18 @@ public class TestCollections {
 
 		System.out.println("HashMap \n" + map3);
 		System.out.println(map4);
-		System.out.println("Contains Key B : "
-				+ map3.containsKey(new B(new C(), "P")));
+		System.out.println("Contains Key B : " + map3.containsKey(new B(new C(), "P")));
 		System.out.println("Contains Value 006: " + map3.containsValue("006"));
-		TreeMap<Duck, String> map5 = new TreeMap<Duck, String>();
-		map5.put(new Duck("Test1"), null);
-		map5.put(new Duck("Test2"), null);
-		map5.put(new Duck("Test3"), null);
-		
-		//map5.putIfAbsent(arg0, arg1);
-		//map5.merge(arg0, arg1, arg2);
-		
-		//map5.computeIfPresent(arg0, arg1);
-		//map5.computeIfAbsent(arg0, arg1);
-		
+		// TreeMap<Duck, String> map5 = new TreeMap<Duck, String>();
+		// map5.put(new Duck("Test1"), null);
+		// map5.put(new Duck("Test2"), null);
+		// map5.put(new Duck("Test3"), null);
+
+		// map5.putIfAbsent(arg0, arg1);
+		// map5.merge(arg0, arg1, arg2);
+
+		// map5.computeIfPresent(arg0, arg1);
+		// map5.computeIfAbsent(arg0, arg1);
 
 	}
 
@@ -506,17 +482,15 @@ public class TestCollections {
 
 		try {
 			for (Map.Entry mapEntry : hashMap.entrySet()) {
-				System.out.println(mapEntry.getKey() + " "
-						+ mapEntry.getValue());
+				System.out.println(mapEntry.getKey() + " " + mapEntry.getValue());
 				hashMap.put("", "fgfg");
-				
+
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
-		Iterator<Entry<String, String>> localIterator = hashMap.entrySet()
-				.iterator();
+		Iterator<Entry<String, String>> localIterator = hashMap.entrySet().iterator();
 		try {
 			while (localIterator.hasNext()) {
 				Entry<String, String> entry = localIterator.next();
@@ -567,7 +541,7 @@ class B extends A {
 		if (this == paramObject)
 			flag = true;
 		if (paramObject instanceof B) {
-			flag= name.equals(((B) paramObject).getName());
+			flag = name.equals(((B) paramObject).getName());
 		}
 		System.out.println(flag);
 		return flag;

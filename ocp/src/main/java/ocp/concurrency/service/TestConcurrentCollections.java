@@ -27,17 +27,18 @@ import java.util.function.BiConsumer;
  *
  */
 public class TestConcurrentCollections {
-	
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//testConcurrentHashMap();
-		//testConcurrentList();
+		// testConcurrentHashMap();
+		// testConcurrentList();
 		testSkipListCollections();
-		//testConcurrentQueue();
-		//testConcurrentDeque();
-		//testBlockingQueue();
+		// testConcurrentQueue();
+		// testConcurrentDeque();
+		// testBlockingQueue();
+
 	}
 
 	public static void testConcurrentHashMap() {
@@ -98,15 +99,15 @@ public class TestConcurrentCollections {
 		}
 		queue.add("PQR");
 		queue.add("XYZ");
-		for ( ;queue.size()>0;) {
-			System.out.print(queue.size()+" ");
-			System.out.print(queue.poll()+"\n");
+		for (; queue.size() > 0;) {
+			System.out.print(queue.size() + " ");
+			System.out.print(queue.poll() + "\n");
 		}
 	}
-	
+
 	public static void testBlockingDeQueue() {
 		LinkedBlockingDeque<String> queue = new LinkedBlockingDeque();
-				
+
 		try {
 			queue.offer("ABC", 1, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
@@ -116,12 +117,12 @@ public class TestConcurrentCollections {
 		}
 		queue.add("PQR");
 		queue.add("XYZ");
-		for ( ;queue.size()>0;) {
-			System.out.print(queue.size()+" ");
-			System.out.print(queue.poll()+"\n");
+		for (; queue.size() > 0;) {
+			System.out.print(queue.size() + " ");
+			System.out.print(queue.poll() + "\n");
 		}
 	}
-	
+
 	public static void testSkipListCollections() {
 		Set<String> concurrentSortedSet = new ConcurrentSkipListSet<String>();
 		concurrentSortedSet.add("one");
@@ -163,8 +164,7 @@ public class TestConcurrentCollections {
 		queue.add("4");
 		for (String s : queue) {
 
-			System.out.println("Size:" + queue.size() + "---" + queue.peek()
-					+ "---" + queue.peekLast());
+			System.out.println("Size:" + queue.size() + "---" + queue.peek() + "---" + queue.peekLast());
 			queue.remove("4");
 		}
 
@@ -213,7 +213,7 @@ public class TestConcurrentCollections {
 	public static void testConcurrentQueue() {
 
 		Queue<String> queue = new ConcurrentLinkedQueue<String>();
-		
+
 		ExecutorService service = null;
 		try {
 			service = Executors.newFixedThreadPool(5);
