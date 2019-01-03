@@ -31,6 +31,29 @@ public class Test {
 	}
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
+		String className = "ocp.oops.test.Temp";
+		try {
+			Class cls = Class.forName(className);
+			ocp.oops.test.X obj = (ocp.oops.test.X) cls.newInstance();
+			System.out.println(obj);
+			obj.setsDefault("Default Test");
+			obj.setsPrivate("Private Test");
+			obj.setsProtected("Protected Test");
+			obj.setsPublic("Public Test");
+			System.out.println(obj);
+			System.out.println(
+					obj.getsDefault() + " " + obj.getsPrivate() + " " + obj.getsProtected() + " " + obj.getsPublic());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		final List<Future<?>> results = new ArrayList<>();
 		IntStream.range(10, 15).forEach(i -> results.add(service.submit(() -> calculateFuture(i)))); // i2

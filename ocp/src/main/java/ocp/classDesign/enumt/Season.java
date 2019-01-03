@@ -83,7 +83,98 @@ public enum Season {
 		Season.WINTER.testFUN();
 		Season.SPRING.testFUN();
 		Season.SPRING.printhours();
-		RuntimeException r;
+
+		System.out.println("\n\n\n");
+
+		for (SftpParameters s : SftpParameters.values()) {
+			System.out.print(s.ordinal() + " " + s.name() + " " + s.getDescription());
+
+			if (String.class.equals(s.getType())) {
+				System.out.println(" String");
+			} else if (Boolean.class.equals(s.getType())) {
+				System.out.println(" Boolean");
+			} else {
+				System.out.println("Not configured.");
+			}
+		}
 	}
 
+}
+
+enum SftpParameters {
+	URL("SFTP URL") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return String.class;
+		}
+	},
+	USERNAME("SFTP USERNAME") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return String.class;
+		}
+	},
+	AUTHENTICATION("SFTP PEM LOCATION") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return String.class;
+		}
+	},
+	LOCAL("SFTP LOCAL DIRECTORY") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return String.class;
+		}
+	},
+	REMOTE("SFTP REMOTE DIRECTORY") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return String.class;
+		}
+	},
+	REMOTE_FILE("SFTP REMOTE FILENAME") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return String.class;
+		}
+	},
+	DIR_COPY("SFTP REMOTE DIRECTORY COPY") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return Boolean.class;
+		}
+	},
+	STRICT_CHECK("SFTP HOSTNAME STRICT CHECK") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return Boolean.class;
+		}
+	},
+	BACKUP("SFTP BACKUP FILENAME") {
+		@Override
+		public Object getType() {
+			// TODO Auto-generated method stub
+			return String.class;
+		}
+	};
+
+	private String description;
+
+	public abstract Object getType();
+
+	SftpParameters(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
+	}
 }

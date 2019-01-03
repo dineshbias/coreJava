@@ -51,7 +51,7 @@ public class TestReflection {
 		s.setPrivateI(1);
 		s.setPublicS("initial");
 
-		System.out.println(s);
+		System.out.println("\n" + s);
 
 		Class testRefClass = s.getClass();
 		Field f;

@@ -5,6 +5,8 @@ package com.example.demo.controller;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +26,6 @@ import com.example.demo.util.Helper;
 @RunWith(MockitoJUnitRunner.class)
 public class HelloWorldControllerTest {
 
-	@InjectMocks
-	HelloWorldController controller;
-
 	@Mock
 	private SimpleService simpleService;
 
@@ -36,6 +35,9 @@ public class HelloWorldControllerTest {
 	@Mock
 	private Helper helper;
 
+	@InjectMocks
+	HelloWorldController controller;
+
 	@Test
 	public void testGetHelloWorld() {
 
@@ -44,11 +46,18 @@ public class HelloWorldControllerTest {
 		String actualResponse = controller.getHelloWorld("Dinesh");
 
 		assertArrayEquals(new Object[] { "Hello " + "Dinesh" }, new Object[] { actualResponse });
+
 	}
 
 	@Test
 	public void testTestUtil() {
 		String actualResponse = controller.testUtil("Ramesh");
 		assertArrayEquals(new Object[] { "Hello " + "Ramesh" }, new Object[] { actualResponse });
+	}
+
+	@Test
+	public void testDoNothing() {
+		controller.doNothing("1", "Dinesh");
+		verify(helper, times(1)).testDoNothing();
 	}
 }

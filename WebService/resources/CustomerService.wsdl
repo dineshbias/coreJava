@@ -83,15 +83,15 @@
     <wsdl:portType name="CustomerService">
         <wsdl:operation name="updateCustomer">
             <wsdl:input name="updateCustomer" message="tns:updateCustomer">
-    </wsdl:input>
+    		</wsdl:input>
         </wsdl:operation>
         <wsdl:operation name="getCustomersByName">
             <wsdl:input name="getCustomersByName" message="tns:getCustomersByName">
-    </wsdl:input>
+    		</wsdl:input>
             <wsdl:output name="getCustomersByNameResponse" message="tns:getCustomersByNameResponse">
-    </wsdl:output>
+    		</wsdl:output>
             <wsdl:fault name="NoSuchCustomerException" message="tns:NoSuchCustomerException">
-    </wsdl:fault>
+    		</wsdl:fault>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="CustomerServiceServiceSoapBinding" type="tns:CustomerService">

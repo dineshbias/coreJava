@@ -52,10 +52,10 @@ public class TestBuiltInFunctionalInterfaces {
 		// testSample();
 
 		// testLambdaAndVariables();
-		testFunctionalInterfaces();
+		// testFunctionalInterfaces();
 		// testOptional();
 		// testTerminalOperation();
-		// testIntermediateOperation();
+		testIntermediateOperation();
 		// testPrimitiveStreams();
 		Integer i;
 		// testAdvancedStreamConcepts();
@@ -211,6 +211,7 @@ public class TestBuiltInFunctionalInterfaces {
 	}
 
 	public static void testTerminalOperationCollect() {
+
 		Stream<Integer> finiteStream = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3,
 				4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		Averager a = finiteStream.collect(Averager::new, Averager::accept, Averager::combiner);
@@ -248,6 +249,20 @@ public class TestBuiltInFunctionalInterfaces {
 	}
 
 	public static void testIntermediateOperation() {
+
+		Test1 t1 = new Test1();
+		t1.setA(1);
+		t1.setB("t1");
+		Test1 t2 = new Test1();
+		t2.setA(2);
+		t2.setB("t2");
+		Test1 t3 = new Test1();
+		t3.setA(3);
+		t3.setB("t3");
+
+		Stream<Test1> s1 = Stream.of(t1, t2, t3);
+		ArrayList<Test2> test2 = s1.map(Test1::convert).collect(Collectors.toCollection(ArrayList::new));
+
 		Stream<String> finiteStreamOfStrings = Stream.of("Dinesh", "Ramesh", "Umesh", "Anoop", "Dinker");
 		Predicate<String> filter = (s) -> s.startsWith("Di");
 		Stream<String> intermediateStream = finiteStreamOfStrings.filter(filter); // intermediate
@@ -863,4 +878,54 @@ class Averager {
 		total += a.total;
 		count += a.count;
 	}
+}
+
+class Test1 {
+	private int a;
+	private String b;
+
+	public int getA() {
+		return a;
+	}
+
+	public void setA(int a) {
+		this.a = a;
+	}
+
+	public String getB() {
+		return b;
+	}
+
+	public void setB(String b) {
+		this.b = b;
+	}
+
+	public static Test2 convert(Test1 t) {
+		Test2 test2 = new Test2();
+		test2.setX(t.getA());
+		test2.setY(t.getB());
+		return test2;
+	}
+}
+
+class Test2 {
+	private int x;
+	private String y;
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public String getY() {
+		return y;
+	}
+
+	public void setY(String y) {
+		this.y = y;
+	}
+
 }

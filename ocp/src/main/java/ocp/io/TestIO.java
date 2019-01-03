@@ -46,6 +46,10 @@ public class TestIO {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		String s = "ramagliod@bbva.com;DANIEL MARCELO;;RAMAGLIO;OPERACIONES Y SINIESTROS;2009-05-07;;SUBGTE OPERAC Y SINIESTROS/SE;;;;;1967-02-12;;;CAPITAL FEDERAL;;ARGENTINA;ramagliod@bbva.com;BBVA CONSOLIDAR SEGUROS S.A.;DESARROLLO DE NEGOCIO;SEGUROS ARGENTINA;OPERACIONES Y SINIESTROS;;;;;";
+		String[] token = s.split(";");
+		for (String ss : token)
+			System.out.println(ss);
 
 		File f2 = new File("abc.txt");
 		System.out.println(f2);
@@ -59,7 +63,7 @@ public class TestIO {
 		testSerialization();
 		// printSystemProperties();
 		File file = new File(testHome);
-		// deleteDirectoryAndFileContentsFromFile(file);
+		deleteDirectoryAndFileContentsFromFile(file);
 		// createDirectory("test1");
 		// createDirectory("emptyDir");
 		// createDirectoryAndFiles("test");
@@ -532,7 +536,7 @@ public class TestIO {
 	}
 }
 
-class Zebra implements Serializable {
+class Zebra implements Serializable, Cloneable {
 	/**
 	 * 
 	 */
@@ -542,11 +546,21 @@ class Zebra implements Serializable {
 	private transient String name = "George";
 	private static String birthPlace = "Africa";
 	private transient Integer age;
-	private java.util.List<Zebra> friends = new java.util.ArrayList<>();
+	private java.util.List<String> friends = new java.util.ArrayList<>();
 	private Object tail;
+	private java.util.List<A> a;
 	private P p = new P();
 	{
 		age = 10;
+		friends.add("Sample");
+		A a1 = new A();
+		Example e = new Example();
+		e.setId(1);
+		e.setName("Dinesh");
+		a1.setE(e);
+		a = new ArrayList<>();
+		a.add(a1);
+
 	}
 
 	public Zebra() {
@@ -557,10 +571,19 @@ class Zebra implements Serializable {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return serialUID + " name:" + name + " birthPlace:" + birthPlace + " age:" + age + " friends:" + friends
-				+ " tail:" + tail + " P:" + p;
+				+ " tail:" + tail + " P:" + p + " A:" + a;
+	}
+
+	@Override
+	public Zebra clone() {
+		try {
+			return (Zebra) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 }
 
-class P {
+class P implements Serializable {
 
 }

@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,11 +47,6 @@ public class HelloWorldControllerTestIntegration {
 
 	HttpHeaders headers = new HttpHeaders();
 
-	@Before
-	public void setupMock() {
-		System.out.println("---------------Test setupMock-------------");
-	}
-
 	@Test
 	public void testHandlePathAndRequestParams() {
 
@@ -67,8 +61,8 @@ public class HelloWorldControllerTestIntegration {
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("username", name);
 
-			ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/user/1"), HttpMethod.GET,
-					entity, String.class, params);
+			ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/user/1?username=TestUser"),
+					HttpMethod.GET, entity, String.class, params);
 
 		} catch (Exception e) {
 			System.out.println(e);

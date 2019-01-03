@@ -29,4 +29,7 @@ public class Helper {
 		return input;
 	}
 
+	public void testDoNothing() {
+		System.out.println(this + " public void testDoNothing");
+	}
 }

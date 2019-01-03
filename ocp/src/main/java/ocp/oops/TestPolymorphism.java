@@ -1,8 +1,13 @@
 package ocp.oops;
 
+import ocp.oops.test.Temp;
+
 public class TestPolymorphism {
 
 	public static void main(String[] args) {
+
+		Temp temp = new Temp();
+		System.out.println(temp.sPublic);
 
 		SampleA test = new SampleA();
 		System.out.println(test.sDefault);

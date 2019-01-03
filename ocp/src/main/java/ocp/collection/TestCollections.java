@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
@@ -284,6 +285,11 @@ public class TestCollections {
 
 		System.out.println(hashSetInt);
 
+		TreeSet<B> treeSetObj = new TreeSet<>();
+
+		treeSetObj.add(new B(new C(), "Test"));
+		treeSetObj.add(new B(new C(), "Last"));
+
 	}
 
 	public static void testQueueMethods() {
@@ -412,11 +418,17 @@ public class TestCollections {
 		HashMap<B, String> map3 = new HashMap<B, String>();
 		map3.put(null, null);
 		map3.put(new B(new C(), "Z"), "003");
-		map3.put(new B(new C(), "A"), "009");
+		// map3.put(new B(new C(), "A"), "009");
 		map3.put(new B(new C(), "P"), "006");
 
 		Set<B> keySet = map3.keySet();
 		Iterator<B> it = keySet.iterator();
+		while (it.hasNext()) {
+			B b = it.next();
+			System.out.println(b + " " + map3.get(b));
+		}
+		map3.put(new B(new C(), "P"), "000");
+		it = keySet.iterator();
 		while (it.hasNext()) {
 			B b = it.next();
 			System.out.println(b + " " + map3.get(b));
@@ -445,7 +457,8 @@ public class TestCollections {
 		System.out.println(map4);
 		System.out.println("Contains Key B : " + map3.containsKey(new B(new C(), "P")));
 		System.out.println("Contains Value 006: " + map3.containsValue("006"));
-		// TreeMap<Duck, String> map5 = new TreeMap<Duck, String>();
+		TreeMap<Duck, String> map5 = new TreeMap<Duck, String>();
+
 		// map5.put(new Duck("Test1"), null);
 		// map5.put(new Duck("Test2"), null);
 		// map5.put(new Duck("Test3"), null);

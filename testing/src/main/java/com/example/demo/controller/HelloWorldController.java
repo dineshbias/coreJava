@@ -60,7 +60,7 @@ public class HelloWorldController {
 
 		helper.doSomething();
 		helper.doSomethingWithInput(name);
-		simpleService.simpleServicing(name);
+		String s = simpleService.simpleServicing(name);
 		return "Hello " + name;
 
 	}
@@ -104,6 +104,18 @@ public class HelloWorldController {
 		response.setId("001");
 		return toJSON(response);
 
+	}
+
+	@RequestMapping(value = "/user/doNothing/{id}")
+	public String doNothing(@PathVariable(value = "id") String id,
+			@RequestParam(value = "username", required = false) String username) {
+		System.out.println(this + " handlePathAndRequestParams " + id + " " + username);
+
+		helper.testDoNothing();
+
+		simpleService.simpleServicing(username);
+
+		return id + " " + username;
 	}
 
 	public String toJSON(Object obj) {
