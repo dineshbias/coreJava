@@ -17,6 +17,10 @@
 		<maven.checkstyle.version>3.0.0</maven.checkstyle.version>
 		<checkstyle.config.location>${basedir}/codequality/config/checkstyle-idea.xml</checkstyle.config.location>
 		<checkstyle.suppressions.location>${basedir}/codequality/config/checkstyle-supressions.xml</checkstyle.suppressions.location>
+		<jacoco.version>0.7.5.201505241946</jacoco.version>
+		<pmd.version>3.11.0</pmd.version>
+		<findbugs.version>3.0.5</findbugs.version>
+		<git-commit-id-plugin.version>2.2.6</git-commit-id-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -58,6 +62,111 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<dataFile>target/jacoco.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>target/jacoco-ut</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<systemPropertyVariables>
+						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+					</systemPropertyVariables>
+					<excludes>
+						<exclude>com/ey/cache/constant/*</exclude>
+						<exclude>com/ey/cache/utils/*</exclude>
+						<exclude>com/ey/cache/manager/*</exclude>
+						<exclude>com/ey/cache/exception/*</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${pmd.version}</version>
+				<configuration>
+					<includeTests>true</includeTests>
+					<minimumTokens>100</minimumTokens>
+					<linkXref>false</linkXref>
+					<failOnViolation>true</failOnViolation>
+					<skipEmptyReport>false</skipEmptyReport>
+					<excludes>
+						<exclude>**/*Bean.java</exclude>
+						<exclude>**/generated/*.java</exclude>
+					</excludes>
+					<excludeRoots>
+						<excludeRoot>target/generated-sources</excludeRoot>
+						<excludeRoot>target/generated-test-sources</excludeRoot>
+					</excludeRoots>
+					<outputDirectory>${project.build.directory}/pmd</outputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>pmd</goal>
+							<goal>cpd</goal>
+							<goal>cpd-check</goal>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>${findbugs.version}</version>
+				<configuration>
+					<effort>Max</effort>
+					<threshold>Low</threshold>
+					<includeTests>true</includeTests>
+					<findbugsXmlOutputDirectory>
+						${project.build.directory}/findbugs
+					</findbugsXmlOutputDirectory>
+					<!-- Build will be failed if errors found -->
+					<failOnError>true</failOnError>
+				</configuration>
+				<executions>
+					<execution>
+						<id>check</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>${git-commit-id-plugin.version}</version>
 			</plugin>
 		</plugins>
 	</build>
