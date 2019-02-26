@@ -8,173 +8,175 @@ package ocp.classDesign.enumt;
  *
  */
 public enum Season {
-	WINTER("LOW") {
-		@Override
-		public void printhours() {
-			Season.SPRING.printhours();
 
-		}
+  WINTER("LOW") {
 
-		@Override
-		public void testFUN() {
-			System.out.println("WINTER Inside enum value function");
-		}
-	},
-	SPRING("MEDIUM") {
-		@Override
-		public void printhours() {
-			System.out.println("SPRING printhours");
+    @Override
+    public void printhours() {
+      Season.SPRING.printhours();
 
-		}
-	},
-	SUMMER("HIGH") {
-		@Override
-		public void printhours() {
-			// TODO Auto-generated method stub
+    }
 
-		}
-	},
-	FALL("MEDIUM") {
-		@Override
-		public void printhours() {
-			// TODO Auto-generated method stub
+    @Override
+    public void testFUN() {
+      System.out.println("WINTER Inside enum value function");
+    }
+  },
+  SPRING("MEDIUM") {
+    @Override
+    public void printhours() {
+      System.out.println("SPRING printhours");
 
-		}
-	};
-	private static int i;
-	private String intensity;
+    }
+  },
+  SUMMER("HIGH") {
+    @Override
+    public void printhours() {
+      // TODO Auto-generated method stub
 
-	Season(String s) {
-		System.out.println("Parameterized Constructor " + s);
-		intensity = s;
-	}
+    }
+  },
+  FALL("MEDIUM") {
+    @Override
+    public void printhours() {
+      // TODO Auto-generated method stub
 
-	public abstract void printhours();
+    }
+  };
+  private static int i;
+  private String intensity;
 
-	public void testFUN() {
-		System.out.println("Inside enum function");
-	}
+  Season(String s) {
+    System.out.println("Parameterized Constructor " + s);
+    intensity = s;
+  }
 
-	public static void main(String... varArgs) {
-		System.out.println("Running main ");
-		for (Season s : Season.values()) {
-			System.out.println(s.ordinal() + " " + s.name());
-		}
+  public abstract void printhours();
 
-		Season summer = Season.SUMMER;
+  public void testFUN() {
+    System.out.println("Inside enum function");
+  }
 
-		System.out.println(summer + " " + summer.intensity + " " + summer.name());
+  public static void main(String... varArgs) {
+    System.out.println("Running main ");
+    for (Season s : Season.values()) {
+      System.out.println(s.ordinal() + " " + s.name() + " ");
+    }
 
-		switch (summer) {
-		case WINTER:
-			System.out.println("It is winter");
-			break;
-		case SPRING:
-			System.out.println("It is spring");
-			break;
-		case SUMMER:
-			System.out.println("It is summer");
-			break;
-		case FALL:
-			System.out.println("It is fall");
-			break;
-		}
+    Season summer = Season.SUMMER;
 
-		Season.WINTER.testFUN();
-		Season.SPRING.testFUN();
-		Season.SPRING.printhours();
+    System.out.println(summer + " " + summer.intensity + " " + summer.name() + " " + summer.toString());
 
-		System.out.println("\n\n\n");
+    switch (summer) {
+    case WINTER:
+      System.out.println("It is winter");
+      break;
+    case SPRING:
+      System.out.println("It is spring");
+      break;
+    case SUMMER:
+      System.out.println("It is summer");
+      break;
+    case FALL:
+      System.out.println("It is fall");
+      break;
+    }
 
-		for (SftpParameters s : SftpParameters.values()) {
-			System.out.print(s.ordinal() + " " + s.name() + " " + s.getDescription());
+    Season.WINTER.testFUN();
+    Season.SPRING.testFUN();
+    Season.SPRING.printhours();
 
-			if (String.class.equals(s.getType())) {
-				System.out.println(" String");
-			} else if (Boolean.class.equals(s.getType())) {
-				System.out.println(" Boolean");
-			} else {
-				System.out.println("Not configured.");
-			}
-		}
-	}
+    System.out.println("\n\n\n");
+
+    for (SftpParameters s : SftpParameters.values()) {
+      System.out.print(s.ordinal() + " " + s.name() + " " + s.getDescription());
+
+      if (String.class.equals(s.getType())) {
+        System.out.println(" String");
+      } else if (Boolean.class.equals(s.getType())) {
+        System.out.println(" Boolean");
+      } else {
+        System.out.println("Not configured.");
+      }
+    }
+  }
 
 }
 
 enum SftpParameters {
-	URL("SFTP URL") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return String.class;
-		}
-	},
-	USERNAME("SFTP USERNAME") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return String.class;
-		}
-	},
-	AUTHENTICATION("SFTP PEM LOCATION") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return String.class;
-		}
-	},
-	LOCAL("SFTP LOCAL DIRECTORY") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return String.class;
-		}
-	},
-	REMOTE("SFTP REMOTE DIRECTORY") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return String.class;
-		}
-	},
-	REMOTE_FILE("SFTP REMOTE FILENAME") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return String.class;
-		}
-	},
-	DIR_COPY("SFTP REMOTE DIRECTORY COPY") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return Boolean.class;
-		}
-	},
-	STRICT_CHECK("SFTP HOSTNAME STRICT CHECK") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return Boolean.class;
-		}
-	},
-	BACKUP("SFTP BACKUP FILENAME") {
-		@Override
-		public Object getType() {
-			// TODO Auto-generated method stub
-			return String.class;
-		}
-	};
+  URL("SFTP URL") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return String.class;
+    }
+  },
+  USERNAME("SFTP USERNAME") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return String.class;
+    }
+  },
+  AUTHENTICATION("SFTP PEM LOCATION") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return String.class;
+    }
+  },
+  LOCAL("SFTP LOCAL DIRECTORY") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return String.class;
+    }
+  },
+  REMOTE("SFTP REMOTE DIRECTORY") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return String.class;
+    }
+  },
+  REMOTE_FILE("SFTP REMOTE FILENAME") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return String.class;
+    }
+  },
+  DIR_COPY("SFTP REMOTE DIRECTORY COPY") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return Boolean.class;
+    }
+  },
+  STRICT_CHECK("SFTP HOSTNAME STRICT CHECK") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return Boolean.class;
+    }
+  },
+  BACKUP("SFTP BACKUP FILENAME") {
+    @Override
+    public Object getType() {
+      // TODO Auto-generated method stub
+      return String.class;
+    }
+  };
 
-	private String description;
+  private String description;
 
-	public abstract Object getType();
+  public abstract Object getType();
 
-	SftpParameters(String description) {
-		this.description = description;
-	}
+  SftpParameters(String description) {
+    this.description = description;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public String getDescription() {
+    return description;
+  }
 }

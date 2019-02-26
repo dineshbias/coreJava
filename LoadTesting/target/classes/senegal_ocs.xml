@@ -1,0 +1,809 @@
+<?xml version="1.0" ?>
+<FFS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema/config3.xsd">
+	<!-- Logging section -->
+	<Logging path="logs/" snapshotTime="5000" snapshotInConsole="true" statistics="false" logDataInOut="1" debugLogging="false" />
+	<!-- Repository section -->
+	<Repository>
+		<Global>
+			<Variable name="destIP" type="Fixed" value="127.0.01" datatype="String" />
+			<Variable name="destPort" type="Fixed" value="8099" datatype="String" />
+			<Variable name="Global.transactionId" type="Step" start="1000"  stepsize="1" datatype="Integer" max="221764999990" />
+			<Variable name="Global.amount" type="Step" start="100"  stepsize="10" datatype="Integer" max="500" />
+		</Global>
+		<Local>
+			<Variable name="transactionId" type="Fixed" value= "${Global.transactionId}" datatype="Integer"/>
+			<Variable name="amount" type="Fixed" value= "${Global.amount}" datatype="Integer"/>
+		</Local>
+	</Repository>
+	<!-- Simulator plug-in section -->
+	<Plugin class="cmg.tools.ffs.plugins.report.Report" name="Report plugin"> 
+		<Argument name="report.settings" value="./ocs/SenegalTM/tego_senegal_report_settings.xml" />		   <!--Edit this file -->
+		<Argument name="report.label" value="LWAM_SENEGAL" />
+	</Plugin>	
+	<!-- Simulator plug-in section -->
+	<Plugin class="cmg.tools.ffs.plugins.http.HTTP">
+		<Argument name="port" value="${Global.destPort}" />	
+		<Argument name="maxTotalConnections" value="500" />
+		<Argument name="host" value="${Global.destIP}" />
+		<Argument name="maxConnectionsPerHost" value="400" />
+		<Argument name="TLS" value="false" />
+	</Plugin>
+	
+
+<Models>
+
+		<Model name="OCS:testAirtimePurchase_768778438">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_768778438.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769061593">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769061593.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763485456">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763485456.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_764869465">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_764869465.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763018592">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763018592.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_766678333">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_766678333.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_766101086">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_766101086.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_766133917">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_766133917.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763379275">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763379275.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_760235736">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_760235736.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765421341">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765421341.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769497974">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769497974.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763249390">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763249390.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_766329236">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_766329236.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_761319861">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_761319861.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763190289">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763190289.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_768841668">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_768841668.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_768303752">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_768303752.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_766431597">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_766431597.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769097775">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769097775.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765322754">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765322754.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_767254096">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_767254096.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_764953476">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_764953476.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765759364">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765759364.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765722174">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765722174.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_767353482">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_767353482.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_768684065">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_768684065.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_768673858">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_768673858.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_767334326">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_767334326.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765971053">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765971053.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_762819772">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_762819772.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765931142">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765931142.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765605625">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765605625.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_760228895">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_760228895.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_764875251">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_764875251.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765725236">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765725236.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765020662">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765020662.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_767248234">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_767248234.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765788817">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765788817.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765810347">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765810347.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769003337">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769003337.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769218455">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769218455.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_764766206">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_764766206.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_767367169">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_767367169.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765477856">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765477856.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_768684039">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_768684039.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765860375">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765860375.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765705549">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765705549.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769238018">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769238018.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763113926">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763113926.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769494606">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769494606.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765339347">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765339347.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765619171">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765619171.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_764720034">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_764720034.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_764694268">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_764694268.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765392674">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765392674.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769499084">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769499084.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_766480432">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_766480432.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763596829">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763596829.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769279155">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769279155.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769421828">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769421828.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765454453">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765454453.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763293877">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763293877.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_764698049">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_764698049.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765921834">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765921834.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_763028318">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_763028318.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_765339274">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_765339274.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769476519">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769476519.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_764887559">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_764887559.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+		<Model name="OCS:testAirtimePurchase_769405543">
+		<Item repeat="1" delay="10" timeout="30000" type="out_sync">
+		<Data name="Method" value="POST" datatype="String" />
+		<Data name="Content-Type" value="text/xml" datatype="String" />
+		<Data name="URI" value="${Global.destIP}:${Global.destPort}/serviceprovider/payment" datatype="String" />
+		<Data name="data" value="./Senegal_requests/testAirtimePurchase_769405543.xml" datatype="FileContent"/>
+		<Data name="VERDICT.XML-response" value="/paymentresponse/status[contains(.,'COMPLETED')]=/paymentresponse/status" datatype="String"/>
+		</Item>
+	 	</Model>
+
+</Models>
+<TrafficModel>
+<Slot times="0" duration="0" tps="0" activeModels="0">
+<Model name="OCS:testAirtimePurchase_768778438" weight="1" />
+<Model name="OCS:testAirtimePurchase_769061593" weight="1" />
+<Model name="OCS:testAirtimePurchase_763485456" weight="1" />
+<Model name="OCS:testAirtimePurchase_764869465" weight="1" />
+<Model name="OCS:testAirtimePurchase_763018592" weight="1" />
+<Model name="OCS:testAirtimePurchase_766678333" weight="1" />
+<Model name="OCS:testAirtimePurchase_766101086" weight="1" />
+<Model name="OCS:testAirtimePurchase_766133917" weight="1" />
+<Model name="OCS:testAirtimePurchase_763379275" weight="1" />
+<Model name="OCS:testAirtimePurchase_760235736" weight="1" />
+<Model name="OCS:testAirtimePurchase_765421341" weight="1" />
+<Model name="OCS:testAirtimePurchase_769497974" weight="1" />
+<Model name="OCS:testAirtimePurchase_763249390" weight="1" />
+<Model name="OCS:testAirtimePurchase_766329236" weight="1" />
+<Model name="OCS:testAirtimePurchase_761319861" weight="1" />
+<Model name="OCS:testAirtimePurchase_763190289" weight="1" />
+<Model name="OCS:testAirtimePurchase_768841668" weight="1" />
+<Model name="OCS:testAirtimePurchase_768303752" weight="1" />
+<Model name="OCS:testAirtimePurchase_766431597" weight="1" />
+<Model name="OCS:testAirtimePurchase_769097775" weight="1" />
+<Model name="OCS:testAirtimePurchase_765322754" weight="1" />
+<Model name="OCS:testAirtimePurchase_767254096" weight="1" />
+<Model name="OCS:testAirtimePurchase_764953476" weight="1" />
+<Model name="OCS:testAirtimePurchase_765759364" weight="1" />
+<Model name="OCS:testAirtimePurchase_765722174" weight="1" />
+<Model name="OCS:testAirtimePurchase_767353482" weight="1" />
+<Model name="OCS:testAirtimePurchase_768684065" weight="1" />
+<Model name="OCS:testAirtimePurchase_768673858" weight="1" />
+<Model name="OCS:testAirtimePurchase_767334326" weight="1" />
+<Model name="OCS:testAirtimePurchase_765971053" weight="1" />
+<Model name="OCS:testAirtimePurchase_762819772" weight="1" />
+<Model name="OCS:testAirtimePurchase_765931142" weight="1" />
+<Model name="OCS:testAirtimePurchase_765605625" weight="1" />
+<Model name="OCS:testAirtimePurchase_760228895" weight="1" />
+<Model name="OCS:testAirtimePurchase_764875251" weight="1" />
+<Model name="OCS:testAirtimePurchase_765725236" weight="1" />
+<Model name="OCS:testAirtimePurchase_765020662" weight="1" />
+<Model name="OCS:testAirtimePurchase_767248234" weight="1" />
+<Model name="OCS:testAirtimePurchase_765788817" weight="1" />
+<Model name="OCS:testAirtimePurchase_765810347" weight="1" />
+<Model name="OCS:testAirtimePurchase_769003337" weight="1" />
+<Model name="OCS:testAirtimePurchase_769218455" weight="1" />
+<Model name="OCS:testAirtimePurchase_764766206" weight="1" />
+<Model name="OCS:testAirtimePurchase_767367169" weight="1" />
+<Model name="OCS:testAirtimePurchase_765477856" weight="1" />
+<Model name="OCS:testAirtimePurchase_768684039" weight="1" />
+<Model name="OCS:testAirtimePurchase_765860375" weight="1" />
+<Model name="OCS:testAirtimePurchase_765705549" weight="1" />
+<Model name="OCS:testAirtimePurchase_769238018" weight="1" />
+<Model name="OCS:testAirtimePurchase_763113926" weight="1" />
+<Model name="OCS:testAirtimePurchase_769494606" weight="1" />
+<Model name="OCS:testAirtimePurchase_765339347" weight="1" />
+<Model name="OCS:testAirtimePurchase_765619171" weight="1" />
+<Model name="OCS:testAirtimePurchase_764720034" weight="1" />
+<Model name="OCS:testAirtimePurchase_764694268" weight="1" />
+<Model name="OCS:testAirtimePurchase_765392674" weight="1" />
+<Model name="OCS:testAirtimePurchase_769499084" weight="1" />
+<Model name="OCS:testAirtimePurchase_766480432" weight="1" />
+<Model name="OCS:testAirtimePurchase_763596829" weight="1" />
+<Model name="OCS:testAirtimePurchase_769279155" weight="1" />
+<Model name="OCS:testAirtimePurchase_769421828" weight="1" />
+<Model name="OCS:testAirtimePurchase_765454453" weight="1" />
+<Model name="OCS:testAirtimePurchase_763293877" weight="1" />
+<Model name="OCS:testAirtimePurchase_764698049" weight="1" />
+<Model name="OCS:testAirtimePurchase_765921834" weight="1" />
+<Model name="OCS:testAirtimePurchase_763028318" weight="1" />
+<Model name="OCS:testAirtimePurchase_765339274" weight="1" />
+<Model name="OCS:testAirtimePurchase_769476519" weight="1" />
+<Model name="OCS:testAirtimePurchase_764887559" weight="1" />
+<Model name="OCS:testAirtimePurchase_769405543" weight="1" />
+</Slot>
+</TrafficModel></FFS>

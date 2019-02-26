@@ -14,67 +14,67 @@ import java.util.concurrent.Executors;
  */
 public class TestMemoryErrors {
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 
-		// test3();
-		test2();
-		// test1();
+    test3();
+    // test2();
+    // test1();
 
-		System.out.println("exit...");
-	}
+    System.out.println("exit...");
+  }
 
-	private static void test3() {
-		test3();
-	}
+  private static void test3() {
+    test3();
+  }
 
-	private static void test2() {
-		for (int i = 0;; i += 1000000000) {
-			System.out.println(i);
-		}
-	}
+  private static void test2() {
+    for (int i = 0;; i += 1000000000) {
+      System.out.println(i);
+    }
+  }
 
-	private static void test1() {
-		try {
+  private static void test1() {
+    try {
 
-			Sample s = new Sample();
+      Sample s = new Sample();
 
-		} finally {
-			System.out.println("test2..");
-		}
-	}
+    } finally {
+      System.out.println("test2..");
+    }
+  }
 
-	private static void test4() {
-		ExecutorService es = Executors.newSingleThreadExecutor();
-		Test t = new Test("Test");
-		System.out.println(Thread.currentThread().getName() + " " + Thread.currentThread().getId() + " running...");
-		try {
-			es.execute(() -> t.test());
-		} catch (Error e) {
-			System.out.println(e);
-		} finally {
+  private static void test4() {
+    ExecutorService es = Executors.newSingleThreadExecutor();
+    Test t = new Test("Test");
+    System.out.println(Thread.currentThread().getName() + " " + Thread.currentThread().getId() + " running...");
+    try {
+      es.execute(() -> t.test());
+    } catch (Error e) {
+      System.out.println(e);
+    } finally {
 
-			System.out.println("finally...");
-			es.shutdown();
-		}
-	}
+      System.out.println("finally...");
+      es.shutdown();
+    }
+  }
 }
 
 class Sample {
-	Integer x;
-	Float y;
-	String s;
+  Integer x;
+  Float y;
+  String s;
 
-	List<Integer> l;
+  List<Integer> l;
 
-	Sample() {
-		x = new Integer(10);
-		y = new Float(3.13);
-		s = new String("Test");
-		l = new ArrayList<>();
-		for (int i = 0;; i++) {
-			// x = new Integer(i);
-			System.out.println("&&");
-			l.add(x);
-		}
-	}
+  Sample() {
+    x = new Integer(10);
+    y = new Float(3.13);
+    s = new String("Test");
+    l = new ArrayList<>();
+    for (int i = 0;; i++) {
+      // x = new Integer(i);
+      System.out.println("&&");
+      l.add(x);
+    }
+  }
 }
